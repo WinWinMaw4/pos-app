@@ -6,9 +6,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{route('toDayInCome') == request()->url()? 'active':''}}" aria-current="page" href="{{route('toDayInCome')}}">Today Income</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Current Month InCome</a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Current Month InCome</a>--}}
+{{--                </li>--}}
             </ul>
             <div class="">
                 <h6 class="text-end p-3">Date : {{\Illuminate\Support\Carbon::now()->toDayDateTimeString()}}</h6>

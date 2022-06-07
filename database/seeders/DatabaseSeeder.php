@@ -17,34 +17,34 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//        User::create([
-//            "name"=>"SaYarGyi",
-//            "email"=>"sayargyi@gmail.com",
-//            "password"=>Hash::make('password')
-//        ]);
-//        User::create([
-//            "name"=>"WinWinMaw",
-//            "email"=>"wwm@gmail.com",
-//            "password"=>Hash::make('password')
-//        ]);
+        User::create([
+            "name"=>"SaYarGyi",
+            "email"=>"sayargyi@gmail.com",
+            "password"=>Hash::make('password')
+        ]);
+        User::create([
+            "name"=>"WinWinMaw",
+            "email"=>"wwm@gmail.com",
+            "password"=>Hash::make('password')
+        ]);
 
-        Category::created([
+        Category::create([
             "name"=>"Fast Food",
             "user_id"=> 2,
         ]);
-        Category::created([
+        Category::create([
             "name"=>"Coffee",
             "user_id"=> 2,
         ]);
-        Category::created([
+        Category::create([
             "name"=>"Drink",
             "user_id"=> 2,
         ]);
-        Category::created([
+        Category::create([
             "name"=>"Cake",
             "user_id"=> 2,
         ]);
-        Category::created([
+        Category::create([
             "name"=>"Bread",
             "user_id"=> 2,
         ]);
