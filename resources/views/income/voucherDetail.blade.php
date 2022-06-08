@@ -6,9 +6,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{route('toDayInCome') == request()->url()? 'active':''}}" aria-current="page" href="{{route('toDayInCome')}}">Today Income</a>
                 </li>
-{{--                <li class="nav-item">--}}
-{{--                    <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Current Month InCome</a>--}}
-{{--                </li>--}}
+                <li class="nav-item">
+                    <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Current Month InCome</a>
+                </li>
             </ul>
             <div class="">
                 <h6 class="text-end p-3">Date : {{\Illuminate\Support\Carbon::now()->toDayDateTimeString()}}</h6>
@@ -60,8 +60,11 @@
                         <td>{{$voucherlist->id}}</td>
                         <td class="text-center">
                             <div class="rounded-circle overflow-hidden bg-secondary" style="height: 50px;width: 50px;">
-                                <a href="{{asset("storage/item/".$voucherlist->items->photo)}}">
-                                    <img src="{{asset("storage/item/".$voucherlist->items->photo)}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">
+{{--                                <a href="{{asset("storage/item/".$voucherlist->items->photo)}}">--}}
+{{--                                    <img src="{{asset("storage/item/".$voucherlist->items->photo)}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">--}}
+{{--                                </a>--}}
+                                <a href="{{$voucherlist->items->photo}}">
+                                    <img src="{{$voucherlist->items->photo}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">
                                 </a>
                             </div>
                         </td>

@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('daily_total_incomes', function (Blueprint $table) {
+        Schema::create('daily_vouchers', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->bigInteger('total_voucher');
-            $table->bigInteger('total_price');
+            $table->integer('total_voucher')->default(0);
+            $table->double('total_price')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('daily_total_incomes');
+        Schema::dropIfExists('daily_vouchers');
     }
 };

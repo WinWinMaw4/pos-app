@@ -18,9 +18,10 @@ return new class extends Migration
             $table->foreignId('voucher_id')->constrained();
             $table->foreignId('item_id')->constrained();
             $table->string('item_name');
-            $table->bigInteger('quantity');
-            $table->integer('unit_price');
-            $table->bigInteger('cost');
+            $table->integer('quantity');
+            $table->double('unit_price');
+            $table->double('cost');
+            $table->date('date');
             $table->timestamps();
         });
     }

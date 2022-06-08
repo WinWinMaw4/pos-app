@@ -10,7 +10,10 @@
                     <a class="nav-link {{route('toDayInCome') == request()->url()? 'active':''}}" aria-current="page" href="{{route('toDayInCome')}}">Today Income</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Current Month InCome</a>
+                    <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Daily InCome</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{route('allInComeVouchers') == request()->url()? 'active':''}}" href="{{route('allInComeVouchers')}}">All InCome Voucher</a>
                 </li>
             </ul>
             <div class="">
@@ -35,12 +38,17 @@
             <h3>Income Lists</h3>
             <button class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Today စာရင်းချုပ်မယ်</button>
         </div>
-
+        @if(session('status'))
+            <div class="alert alert-success my-1">
+                {{session('status')}};
+            </div>
+            @endif
         <div class="py-3 table-responsive-sm mb-5">
             <table class="table table-hover table-borderless align-middle">
                 <thead class="table-primary">
                 <tr class="">
                     <th>#</th>
+                    <th>Date</th>
                     <th class="">Customer Name</th>
                     <th class="text-nowrap">Invoice Number</th>
                     <th class="text-center">Total Items</th>
@@ -55,13 +63,13 @@
                         <td>
                             {{$voucher->id}}
                         </td>
+                        <td>{{$voucher->date}}</td>
                         <td>{{$voucher->customer_name}}</td>
                         <td class="">{{$voucher->invoice_number}}</td>
                         <td class="text-center">
-                            {{$voucher->voucherLists->count('item_id')}}
-{{--                               @foreach($voucher->voucherLists as $item)--}}
-{{--                                    {{$item->item_id}}--}}
-{{--                                @endforeach--}}
+                            {{$voucher->total_item}}
+{{--                            {{$voucher->voucherLists->count('item_id')}}--}}
+
                         </td>
                         <td class="text-center">{{$voucher->total_price}}</td>
                         <td class="text-center">
@@ -103,11 +111,12 @@
                 @endforelse
                 </tbody>
             </table>
+            <div class="my-2">
+                {{$vouchers->links()}}
+            </div>
         </div>
 
-        <div class="">
-            {{$vouchers->links()}}
-        </div>
+
         <form action="{{route('totalToday')}}" id="toDayInCome" method="post">
             @csrf
 {{--            <input name="total-voucher" form="toDayInCome" type="number" value="{{count(\App\Models\Voucher::whereDate('created_at',\Illuminate\Support\Carbon::today())->get())}}" >--}}

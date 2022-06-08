@@ -50,8 +50,11 @@
                         <td>{{$item->id}}</td>
                         <td class="">
                             <div class="rounded-circle overflow-hidden bg-secondary" style="height: 100px;width: 100px;">
-                                <a href="{{asset("storage/item/".$item->photo)}}">
-                                    <img src="{{asset("storage/item/".$item->photo)}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">
+{{--                                <a href="{{asset("storage/item/".$item->photo)}}">--}}
+{{--                                    <img src="{{asset("storage/item/".$item->photo)}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">--}}
+{{--                                </a>--}}
+                                <a href="{{$item->photo}}">
+                                    <img src="{{$item->photo}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">
                                 </a>
                             </div>
                         </td>

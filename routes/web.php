@@ -35,7 +35,9 @@ Route::middleware('auth')->group(function(){
     Route::resource('/item',ItemController::class);
     Route::post('/store-voucher',[VoucherController::class,'storeVoucher']);
     Route::get('/income',[IncomeControler::class,'toDayInCome'])->name('toDayInCome');
-    Route::get('/current-month-income',[IncomeControler::class,'dailyInCome'])->name('dailyInCome');
+    Route::get('/all-income-list',[IncomeControler::class,'allInComeVouchers'])->name('allInComeVouchers');
+
+    Route::get('/daily-income',[IncomeControler::class,'dailyInCome'])->name('dailyInCome');
     Route::post('/income/total-today',[IncomeControler::class,'totalToday'])->name('totalToday');
     Route::get('/voucher-detail/{voucherId}',[VoucherController::class,'voucherDetail'])->name('voucherDetail');
     Route::get('/daily-voucher-list/{voucherDate}',[VoucherController::class,'voucherListDaily'])->name('voucherListDaily');

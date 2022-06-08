@@ -7,21 +7,25 @@
                 <li class="nav-item">
                     <a class="nav-link {{route('toDayInCome') == request()->url()? 'active':''}}" aria-current="page" href="{{route('toDayInCome')}}">Today Income</a>
                 </li>
-{{--                <li class="nav-item">--}}
-{{--                    <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Current Month InCome</a>--}}
-{{--                </li>--}}
+                <li class="nav-item">
+                    <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Daily InCome</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{route('allInComeVouchers') == request()->url()? 'active':''}}" href="{{route('allInComeVouchers')}}">All InCome Voucher</a>
+                </li>
             </ul>
             <div class="">
                 <h6 class="text-end p-3">Date : {{\Illuminate\Support\Carbon::now()->toDayDateTimeString()}}</h6>
 
                 <div class="">
                    <span class="p-2 border rounded-2 text-center me-1">
-                 <lable class="text-black-50">Current Month Income : </lable>
-                   {{\App\Models\VoucherList::whereDate('created_at',\Illuminate\Support\Carbon::today() )->sum('cost')}}
+                 <lable class="text-black-50">Current Month Income : </lable>0
+{{--                       {{\App\Models\DailyVoucher::whereMonth('created_at',date('M'))->groupBy('total_price')->sum()}}--}}
+{{--                   {{\App\Models\VoucherList::whereDate('created_at',\Illuminate\Support\Carbon::today() )->sum('cost')}}--}}
                 </span>
                   <span class="p-2 border rounded-2 text-center me-1">
-                    <label class="text-black-50">Current Month Total Voucher :</label>
-                    {{count(\App\Models\Voucher::whereDate('created_at',\Illuminate\Support\Carbon::today())->get())}}
+                    <label class="text-black-50">Current Month Total Voucher :</label>0
+{{--                    {{count(\App\Models\Voucher::whereDate('created_at',\Illuminate\Support\Carbon::today())->get())}}--}}
                 </span>
               </div>
             </div>

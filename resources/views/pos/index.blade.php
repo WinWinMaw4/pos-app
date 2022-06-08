@@ -23,7 +23,7 @@
             vertical-align: middle;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
 
         }
         .pos-card .content {
@@ -117,7 +117,9 @@
 {{--                                data-bs-toggle="modal" data-bs-target="#productDetail{{$item->id}}"--}}
                                 <div class="card pos-card product-card add-voucher" product-id="{{$item->id}}" data-cat="{{$item->category_id}}"  style="">
                                     @if($item->photo)
-                                        <img src="{{ asset('storage/item/'.$item->photo) }}"  alt='{{$item->photo}}' class="pos-card-img-top product-img" alt="">
+{{--                                        <img src="{{ asset('storage/item/'.$item->photo) }}"  alt='{{$item->photo}}' class="pos-card-img-top product-img" alt="">--}}
+                                        <img src="{{$item->photo}}"  alt='{{$item->photo}}' class="pos-card-img-top product-img" alt="">
+
                                     @elseif($item->photo==null)
                                         <img src="{{asset('image-default.png')}}" class="pos-card-img-top product-img" alt="">
                                     @endif
@@ -199,7 +201,8 @@
                         <form class="text-center modalForm" data-id="{{$item->id}}">
                             <p class="productModalTitle d-none">{{ucwords($item->name)}}</p>
                             <div class="productModalImgDiv border">
-                                <img src="{{asset('storage/item/'.$item->photo)}}" class="productModalImg" id="productModalImg{{$item->id}}" alt="">
+{{--                                <img src="{{asset('storage/item/'.$item->photo)}}" class="productModalImg" id="productModalImg{{$item->id}}" alt="">--}}
+                                <img src="{{$item->photo}}" class="productModalImg" id="productModalImg{{$item->id}}" alt="">
                             </div>
                            <div class="d-flex justify-content-between align-items-center py-3">
                                <p class="text-black-50 h5 mb-0" >

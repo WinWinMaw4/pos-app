@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('vouchers', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
             $table->string('customer_name');
             $table->string('invoice_number');
-            $table->integer('total_price');
+            $table->integer('total_item')->default(0);
+            $table->double('total_price')->default(0);
             $table->timestamps();
         });
     }
