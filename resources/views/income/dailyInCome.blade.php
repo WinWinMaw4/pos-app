@@ -19,13 +19,12 @@
 
                 <div class="">
                    <span class="p-2 border rounded-2 text-center me-1">
-                 <lable class="text-black-50">Current Month Income : </lable>0
-{{--                       {{\App\Models\DailyVoucher::whereMonth('created_at',date('M'))->groupBy('total_price')->sum()}}--}}
-{{--                   {{\App\Models\VoucherList::whereDate('created_at',\Illuminate\Support\Carbon::today() )->sum('cost')}}--}}
+                 <lable class="text-black-50">Current Month Income : </lable>
+                   {{\App\Models\DailyVoucher::whereMonth('date',\Illuminate\Support\Carbon::now()->month )->sum('total_price')}}
                 </span>
                   <span class="p-2 border rounded-2 text-center me-1">
-                    <label class="text-black-50">Current Month Total Voucher :</label>0
-{{--                    {{count(\App\Models\Voucher::whereDate('created_at',\Illuminate\Support\Carbon::today())->get())}}--}}
+                    <label class="text-black-50">Current Month Total Voucher :</label>
+                      {{count(\App\Models\DailyVoucher::whereMonth('date',\Illuminate\Support\Carbon::now()->month )->get())}}
                 </span>
               </div>
             </div>
@@ -100,7 +99,7 @@
         </div>
 
         <div class="">
-{{--            {{$vouchers->links()}}--}}
+            {{$vouchers->links()}}
         </div>
 
     </div>

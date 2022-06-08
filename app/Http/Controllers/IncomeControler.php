@@ -15,21 +15,21 @@ class IncomeControler extends Controller
 {
 
     public function allInComeVouchers(){
-        $vouchers = Voucher::latest('id')->paginate(20);
+        $vouchers = Voucher::latest('id')->paginate(10);
         return view('income.allList',[
             'vouchers'=>$vouchers
         ]);
 
     }
     public function toDayInCome(){
-        $vouchers = Voucher::latest('id')->whereDate('date',Carbon::today())->paginate(20);
+        $vouchers = Voucher::latest('id')->whereDate('date',Carbon::today())->paginate(10);
         return view('income.toDayInCome',[
             'vouchers'=>$vouchers,
         ]);
     }
 
     public function dailyInCome(){
-        $vouchers = DailyVoucher::latest('id')->whereMonth('created_at',Carbon::now()->month)->paginate(20);
+        $vouchers = DailyVoucher::latest('id')->whereMonth('date',Carbon::now()->month)->paginate(10);
         return view('income.dailyInCome',[
             'vouchers'=>$vouchers
         ]);

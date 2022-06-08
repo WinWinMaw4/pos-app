@@ -116,65 +116,7 @@
             </div>
         </div>
 
-
-{{--        <form action="{{route('totalToday')}}" id="toDayInCome" method="post">--}}
-{{--            @csrf--}}
-{{--            --}}{{--            <input name="total-voucher" form="toDayInCome" type="number" value="{{count(\App\Models\Voucher::whereDate('created_at',\Illuminate\Support\Carbon::today())->get())}}" >--}}
-{{--            --}}{{--            <input type="number" form="toDayInCome" name="total-price" value="{{\App\Models\VoucherList::whereDate('created_at',\Illuminate\Support\Carbon::today() )->sum('cost')}}">--}}
-{{--            --}}{{--            <input type="text" name="message" value="Today">--}}
-{{--            --}}{{--            <button>Submit</button>--}}
-{{--        </form>--}}
-
-
     </div>
 
-
-    <!-- Modal -->
-{{--    @forelse($vouchers as $voucher)--}}
-{{--        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">--}}
-{{--            <div class="modal-dialog modal-dialog-centered">--}}
-{{--                <div class="modal-content">--}}
-{{--                    <div class="modal-header">--}}
-{{--                        <h5 class="modal-title" id="staticBackdropLabel">Today စာရင်းချုပ်</h5>--}}
-{{--                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
-{{--                    </div>--}}
-{{--                    <div class="modal-body">--}}
-{{--                        <div class="total-voucher d-flex justify-content-end p-3">--}}
-{{--                            <input type="hidden" name="date"  form="toDayInCome" value="{{today()}}">--}}
-{{--                            <label for="" class="text-black-50 me-1">Date : </label>--}}
-{{--                            {{now()}}--}}
-{{--                        </div>--}}
-{{--                        <ul class="list-group list-group-flush">--}}
-{{--                            <li class="list-group-item">--}}
-{{--                                <div class="total-voucher d-flex justify-content-between align-items-center" >--}}
-{{--                                    <label for="">Total Voucher</label>--}}
-{{--                                    <input name="total_voucher"  form="toDayInCome" type="hidden" value="{{count(\App\Models\Voucher::whereDate('created_at',today())->get())}}" >--}}
-{{--                                    {{count(\App\Models\Voucher::whereDate('created_at',today())->get())}}--}}
-{{--                                </div>--}}
-{{--                            </li>--}}
-{{--                            <li class="list-group-item">--}}
-{{--                                <div class="total-price d-flex justify-content-between align-items-center " name="total-price">--}}
-{{--                                    <label for="">Total Price</label>--}}
-{{--                                    <input type="hidden" form="toDayInCome" name="total_price" value="{{\App\Models\VoucherList::whereDate('created_at',today() )->sum('cost')}}">--}}
-{{--                                    <span>--}}
-{{--                                        {{\App\Models\VoucherList::whereDate('created_at',\Illuminate\Support\Carbon::today() )->sum('cost')}}--}}
-{{--                                        <i>ks</i>--}}
-{{--                                    </span>--}}
-{{--                                </div>--}}
-{{--                            </li>--}}
-{{--                        </ul>--}}
-{{--                        <div class="d-flex justify-content-end align-items-center p-3 text-end">--}}
-{{--                            <button type="button" class="btn btn-lg btn-secondary me-1" data-bs-dismiss="modal">Close</button>--}}
-{{--                            <button type="submit" form="toDayInCome" class="btn btn-lg btn-primary">Done</button>--}}
-{{--                        </div>--}}
-
-
-{{--                    </div>--}}
-
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    @empty--}}
-{{--    @endforelse--}}
 
 @endsection

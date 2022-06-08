@@ -111,18 +111,14 @@
                 @endforelse
                 </tbody>
             </table>
-            <div class="my-2">
-                {{$vouchers->links()}}
-            </div>
+
         </div>
 
-
+        <div class="my-2">
+            {{$vouchers->links()}}
+        </div>
         <form action="{{route('totalToday')}}" id="toDayInCome" method="post">
             @csrf
-{{--            <input name="total-voucher" form="toDayInCome" type="number" value="{{count(\App\Models\Voucher::whereDate('created_at',\Illuminate\Support\Carbon::today())->get())}}" >--}}
-{{--            <input type="number" form="toDayInCome" name="total-price" value="{{\App\Models\VoucherList::whereDate('created_at',\Illuminate\Support\Carbon::today() )->sum('cost')}}">--}}
-{{--            <input type="text" name="message" value="Today">--}}
-{{--            <button>Submit</button>--}}
         </form>
 
 
