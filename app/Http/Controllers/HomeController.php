@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DailyVoucher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class HomeController extends Controller
 {
@@ -24,6 +26,13 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function dashboardView(){
+        $dailyVouchers = DailyVoucher::whereMonth('date',Carbon::now()->month)->get();
+        return view('dashboard',[
+            "dailyVouchers"=>$dailyVouchers
+        ]);
     }
 
 

@@ -89,6 +89,15 @@
                             Incomes
                         </div>
                     </div>
+{{--                    <span class="badge bg-primary rounded-pill">14</span>--}}
+                </a>
+                <a href="{{route('dashboardView')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
+                    <div class="me-auto">
+                        <div class="fw-bold">
+                            <i class="fa-solid fa-grip "></i>
+                            Dashboard
+                        </div>
+                    </div>
                     <span class="badge bg-primary rounded-pill">14</span>
                 </a>
             </div>

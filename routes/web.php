@@ -42,5 +42,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/voucher-detail/{voucherId}',[VoucherController::class,'voucherDetail'])->name('voucherDetail');
     Route::get('/daily-voucher-list/{voucherDate}',[VoucherController::class,'voucherListDaily'])->name('voucherListDaily');
 
+    Route::get('/dashboard',[HomeController::class,'dashboardView'])->name('dashboardView');
 });
 
