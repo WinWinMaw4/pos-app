@@ -8,6 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @csrf
     <title>@yield('title',env('APP_NAME'))</title>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
     <link rel="icon" href="{{asset('images/icon.png')}}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     @yield('head')
@@ -18,7 +22,7 @@
     @csrf
 </form>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 w-100 shadow-sm" style="z-index: 5">
+<nav class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 w-100 shadow-sm hide-in-print" style="z-index: 5">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{route('pos.index')}}">
 {{--            <img src="{{asset('images/logo.png')}}" height="50" class="logo" alt="">--}}
@@ -57,11 +61,11 @@
         </div>
     </div>
 </nav>
-<div class="py-4 mb-2"></div>
+<div class="py-4 mb-2 hide-in-print"></div>
 
 <div class="container-fluid ">
     <div class="row">
-        <div class="col-12 col-md-3 col-lg-2 vh-100 bg-white shadow px-0 side-nav d-none d-md-block">
+        <div class="col-12 col-md-3 col-lg-2 vh-100 bg-white shadow px-0 side-nav d-none d-md-block hide-in-print">
             <div class="list-group px-0  bg-warning">
                 <a href="{{route('pos.index')}}" class="list-group-item list-group-item-action py-3">POS System</a>
                 <a href="{{route('category.index')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
@@ -80,7 +84,14 @@
                             Items
                         </div>
                     </div>
-                    <span class="badge bg-primary rounded-pill">14</span>
+                </a>
+                <a href="{{route('popularItem')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
+                    <div class="me-auto">
+                        <div class="fw-bold">
+{{--                            <i class="fa-solid fa-dice-d6 "></i>--}}
+                            Popular Items
+                        </div>
+                    </div>
                 </a>
                 <a href="{{route('toDayInCome')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
                     <div class="me-auto">
@@ -89,7 +100,6 @@
                             Incomes
                         </div>
                     </div>
-{{--                    <span class="badge bg-primary rounded-pill">14</span>--}}
                 </a>
                 <a href="{{route('dashboardView')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
                     <div class="me-auto">
@@ -98,8 +108,8 @@
                             Dashboard
                         </div>
                     </div>
-                    <span class="badge bg-primary rounded-pill">14</span>
                 </a>
+
             </div>
         </div>
 
@@ -136,6 +146,8 @@
 {{--    </div>--}}
 {{--</div>--}}
 
+<script src="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script src="{{asset('js/app.js')}}"></script>
 @stack('scripts')
 

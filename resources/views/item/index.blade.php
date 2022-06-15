@@ -1,4 +1,7 @@
 @extends('master')
+@section('head')
+
+@endsection
 @section('content')
 
             <div class="col-12 col-md-9 col-lg-10 py-5 ps-3">
@@ -28,18 +31,18 @@
                 @endif
                 <h3>Item Lists</h3>
                 <div class="py-3">
-                        <table class="table table-hover table-borderless align-middle" id="table_ids">
+                        <table class="table table-hover table-borderless align-middle py-2" id="items_table">
                             <thead class="table-primary">
-                            <tr>
+                            <tr class="align-middle">
                                 <th>
                                     #
                                 </th>
-                                <th>Photo</th>
+                                <th class="text-center">Photo</th>
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Category</th>
                                 <th>Description</th>
-                                <th>Total Sale</th>
+                                <th class="text-nowrap">Total Sale</th>
                                 <th class="text-center">Control</th>
                                 <th class="text-end">Created At</th>
                             </tr>
@@ -64,17 +67,18 @@
                                     <td>{{$item->description}}</td>
                                     <td>
                                         {{$item->voucherList->sum('quantity')}}
+
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center text-nowrap">
                                         <div class="">
 
-                                            <a href="{{route('item.edit',$item->id)}}" class="btn btn-outline-warning text-decoration-none me-1">
+                                            <a href="{{route('item.edit',$item->id)}}" class="btn btn-outline-warning btn-sm text-decoration-none me-1">
                                                 <i class="fas fa-edit fa-fw fa-1x"></i>
                                             </a>
                                             <form action="{{route('item.destroy',$item->id)}}" method="post" class="d-inline-block">
                                                 @csrf
                                                 @method('delete')
-                                                <button class="btn btn-outline-danger me-1">
+                                                <button class="btn btn-outline-danger btn-sm me-1">
                                                     <i class="fas fa-trash-alt fa-fw fa-1x"></i>
                                                 </button>
                                             </form>
@@ -100,7 +104,7 @@
                         </table>
                     </div>
                 <div class="">
-                    {{$items->links()}}
+{{--                    {{$items->links()}}--}}
                 </div>
             </div>
 
@@ -108,9 +112,10 @@
 
 
 @push('scripts')
+
 <script>
     $(document).ready( function () {
-        $('#table_id').DataTable();
+        $('#items_table').DataTable();
     } );
 </script>
 @endpush

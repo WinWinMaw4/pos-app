@@ -69,10 +69,35 @@
         #productModalQuantity{
             -moz-appearance: textfield
         }
+        .show-in-print{
+            display: none !important;
+        }
+
+        @media print {
+            .hide-in-print{
+                display: none !important;
+            }
+            /*:not('.show-in-print'){*/
+            /*    display: none !important;*/
+            /*}*/
+            .show-in-print{
+                display: block !important;
+            }
+            .head-row{
+                display: flex !important;
+            }
+            .show-in-print-small-text{
+                font-size: small;
+            }
+            .voucher-col .voucher{
+                /*color: white;*/
+                /*background: yellow !important;*/
+            }
+        }
     </style>
 @endsection
 @section('content')
-    <div class=" col-12 col-md-9 col-lg-7 mt-4 pb-5 ps-3">
+    <div class=" col-12 col-md-9 col-lg-7 mt-4 pb-5 ps-3 hide-in-print">
         <div class="row mb-3">
             <div class="col">
                 <input type="text" placeholder="Customer Number" id="cName"  value="{{ ucwords('Customer') }}" class="form-control">
@@ -86,7 +111,7 @@
         </div>
         <form action="{{route('pos.index')}}" method="get" class="mb-3">
             <div class="me-2">
-                <div class="input-group">
+                <div class="input-group hide-in-print">
                     <input type="text"  name="search" value="{{request('search')}}" class="form-control border border-primary" placeholder="Search" required>
                     <button class="btn btn-outline-primary" type="submit">
                         <i class="fa-solid fa-search"></i>
@@ -149,26 +174,50 @@
         </div>
     </div>
 
+{{--    voucher --}}
     <div class="col-12 col-md-12  col-lg-3 px-0 d-md-none d-lg-block voucher-col">
-        <div class="bg-white  w-100 shadow-sm voucher" style="position: relative">
-                    <h4 class="d-flex justify-content-between align-items-center mb-2 py-3">
+        <div class="bg-white  w-100 shadow-sm voucher" style="position: relative;">
+                    <h4 class="d-flex justify-content-between align-items-center mb-2 py-3 hide-in-print">
                         <span class="text-primary">Your Voucher</span>
                         <span class="badge bg-primary rounded-pill voucherListCount" id="voucherListCount">0</span>
                     </h4>
+                    <div class="show-in-print">
+                        <h3 class="text-center text-primary py-2">POS RESTAURANT <i class="fa-solid fa-bell-concierge"></i></h3>
+                        <small class="my-1 d-block">Date : {{ date('d-m-Y')}}</small>
+                        <small class="my-1 d-block">Customer:{{ucwords('Customer')}}</small>
+                        <small class="my-1 d-block">InvoiceNo : {{ strtoupper(uniqid()) }}</small>
+                    </div>
                     <ul class="list-group " id="voucherList">
+                        <li class="head-row text-black-50 px-2 list-group-item d-flex align-items-center voucher-list-item show-in-print">
+                            <div class="w-50">
+                                Products
+                            </div>
+                            <div class="small text-center text-nowrap" style="width: 30%">
+                                <p class="text-black-50 unit-price voucher-product-price mb-0" >
+                                    Unit Price x Quantity
+                                </p>
+                            </div>
+                            <div class="text-black-50 voucher-cost text-end text-nowrap pe-2" style="width: 20%">Cost</div>
+                        </li>
+
 {{--                        <li class="list-group-item d-flex justify-content-between align-items-center voucher-list-item px-0 pe-1">--}}
-{{--                            <i class="fas fa-times text-danger remove-list px-2" style="cursor: pointer"></i>--}}
-{{--                            <img src="{{asset('storage/item/item_628f97a9802c2.jpg')}}" alt="" class="productImg rounded-2 me-1" width="40px" height="40px">--}}
+{{--                            <i class="fas fa-times text-danger remove-list px-2 voucher-list-del hide-in-print" data-product-id="${productId}" style="cursor: pointer"></i>--}}
+{{--                            <img src="${productImg}" alt="" class="vourcher-product-img rounded-2 me-1 hide-in-print" width="40px" height="40px">--}}
 {{--                            <div class="w-50">--}}
-{{--                                <h6 class="my-0 text-truncate voucher-product-name">IceCream</h6>--}}
-{{--                                <small class="text-muted unit-price voucher-product-price" >--}}
-{{--                                    $2000--}}
-{{--                                </small>--}}
+{{--                               <div class="">--}}
+{{--                                    <h6 class="my-0 text-truncate voucher-product-name">${title}</h6>--}}
+{{--                                    <div class="hide-in-print">--}}
+{{--                                        <small class="text-muted unit-price voucher-product-price" >--}}
+{{--                                            ${price}--}}
+{{--                                        </small>--}}
+{{--                                        x--}}
+{{--                                        <small  class="text-muted unit-price voucher-product-quantity">--}}
+{{--                                            ${quantity}--}}
+{{--                                        </small>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 {{--                            </div>--}}
-{{--                            <div class="">--}}
-{{--                                <input type="number" class="quantity-input form-control" value="1" style="width: 100px">--}}
-{{--                            </div>--}}
-{{--                            <div class="text-muted w-25 voucher-cost text-end">2000</div>--}}
+{{--                            <div class="text-muted w-25 voucher-cost text-end">${cost}</div>--}}
 {{--                        </li>--}}
                     </ul>
 
@@ -176,14 +225,16 @@
                         <div class="total-title h5" >Total</div>
                         <div class="total-price text-end" id="voucherTotal">$0</div>
                     </div>
-                    <button class="btn btn-success btn-lg form-control py-3 position-absolute bottom-0 checkout-btn" >
+                    <div class="text-center w-100 text-primary small fw-bold show-in-print position-absolute bottom-0 p-3">
+                        <p class="mb-0">Thank For Selling From POS</p>
+                        <i>Phone No :0987654321</i>
+                    </div>
+                    <button class="btn btn-success btn-lg form-control py-3 position-absolute bottom-0 checkout-btn hide-in-print" >
                         <span class="h4">
                             <i class="fas fa-shopping-basket"></i>
                             CheckOut
                         </span>
                     </button>
-            </form>
-
         </div>
     </div>
 

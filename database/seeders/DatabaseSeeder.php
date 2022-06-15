@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
         }
 
 
-        $period = CarbonPeriod::create('2022-06-1', '2022-06-8');
+        $period = CarbonPeriod::create('2022-06-1', '2022-06-14');
 
 
         foreach ($period as $date){
@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
             $dailyVoucherCount = 0;
             $dailyVoucherTotalPrice = 0;
 
-            for($v=1;$v<rand(10,20);$v++){
+            for($v=1;$v<rand(5,10);$v++){
                 $dailyVoucherCount ++;
                 $voucher = new Voucher();
                 $voucher->date = $date->format('Y-m-d');

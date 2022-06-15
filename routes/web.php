@@ -17,7 +17,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\VoucherController;
-use App\Http\Controllers\IncomeControler;
+use App\Http\Controllers\IncomeController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -33,12 +33,13 @@ Route::middleware('auth')->group(function(){
     Route::resource('/category',CategoryController::class);
     Route::get('/category-type-detail/{categoryId}',[CategoryController::class,'categoryTypeDetail'])->name('categoryTypeDetail');
     Route::resource('/item',ItemController::class);
+    Route::get('/popular-item',[ItemController::class,'popularItem'])->name('popularItem');
     Route::post('/store-voucher',[VoucherController::class,'storeVoucher']);
-    Route::get('/income',[IncomeControler::class,'toDayInCome'])->name('toDayInCome');
-    Route::get('/all-income-list',[IncomeControler::class,'allInComeVouchers'])->name('allInComeVouchers');
+    Route::get('/income',[IncomeController::class,'toDayInCome'])->name('toDayInCome');
+    Route::get('/all-income-list',[IncomeController::class,'allInComeVouchers'])->name('allInComeVouchers');
 
-    Route::get('/daily-income',[IncomeControler::class,'dailyInCome'])->name('dailyInCome');
-    Route::post('/income/total-today',[IncomeControler::class,'totalToday'])->name('totalToday');
+    Route::get('/daily-income',[IncomeController::class,'dailyInCome'])->name('dailyInCome');
+    Route::post('/income/total-today',[IncomeController::class,'totalToday'])->name('totalToday');
     Route::get('/voucher-detail/{voucherId}',[VoucherController::class,'voucherDetail'])->name('voucherDetail');
     Route::get('/daily-voucher-list/{voucherDate}',[VoucherController::class,'voucherListDaily'])->name('voucherListDaily');
 

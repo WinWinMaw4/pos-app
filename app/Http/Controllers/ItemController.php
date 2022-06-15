@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
+use App\Models\Voucher;
+use App\Models\VoucherList;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
@@ -14,12 +17,28 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
-        $items = Item::latest('id')->paginate(7);
+        $items = Item::latest('id')->get();
         return view("item.index",["items"=>$items]);
     }
+    public function popularItem(){
 
+        $dates =VoucherList::orderBy('date','desc')->get()->groupBy(['date','item_id']);
+
+        $popular_item = Item::addSelect([
+            'total_sales' => VoucherList::whereColumn('item_id','Items.id')
+                ->whereMonth('date',Carbon::now()->month)
+                ->selectRaw('sum(quantity) as total_sales')
+        ])->orderBy('total_sales','desc')->get();
+
+//        return $popular_item;
+        return view('item.popularItem',[
+            'popular_item'=>$popular_item,
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *

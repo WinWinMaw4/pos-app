@@ -1,4 +1,12 @@
 @extends('master')
+@section('head')
+    <style>
+        div.dataTables_wrapper div.dataTables_filter {
+            text-align: right;
+            display: none;
+        }
+    </style>
+@endsection
 @section('content')
 
     <div class="col-12 col-md-9 col-xl-10 vh-100 py-5 ps-3">
@@ -15,7 +23,8 @@
                 </li>
             </ul>
             <div class="">
-                <h6 class="text-end p-3">Date : {{\Illuminate\Support\Carbon::now()->toDayDateTimeString()}}</h6>
+                <h6 class="text-end p-3"><i class="fas fa-calendar-alt calendar-icon"></i> : {{\Illuminate\Support\Carbon::now()->toDayDateTimeString()}} </h6>
+{{--                <input type="date" class="form-control form-control-sm w-25 " id="calendar-input" value="{{today()}}" onclick="calendarClick();">--}}
 
                 <div class="">
                    <span class="p-2 border rounded-2 text-center me-1">
@@ -24,7 +33,7 @@
                 </span>
                   <span class="p-2 border rounded-2 text-center me-1">
                     <label class="text-black-50">Current Month Total Voucher :</label>
-                      {{count(\App\Models\DailyVoucher::whereMonth('date',\Illuminate\Support\Carbon::now()->month )->get())}}
+                     {{count(\App\Models\DailyVoucher::whereMonth('date',\Illuminate\Support\Carbon::now()->month )->get())}}
                 </span>
               </div>
             </div>
@@ -38,7 +47,7 @@
         </div>
 
         <div class="py-3 table-responsive-sm">
-            <table class="table table-hover table-borderless align-middle">
+            <table class="table table-hover table-borderless align-middle py-2" id="dailyInCome_table">
                 <thead class="table-primary">
                 <tr class="">
                     <th>#</th>
@@ -99,10 +108,25 @@
         </div>
 
         <div class="">
-            {{$vouchers->links()}}
+{{--            {{$vouchers->links()}}--}}
         </div>
 
     </div>
 
 
 @endsection
+@push('scripts')
+    <script>
+        let calendarIcon = document.getElementsByClassName('calendar-icon');
+        let calendarInput = document.getElementById('calendar-input');
+        for(let i=0;i<=calendarIcon.length;i++){
+            calendarIcon[i].addEventListener('click',_=>calendarInput.click());
+        }
+
+    </script>
+    <script>
+        $(document).ready( function () {
+            $('#dailyInCome_table').DataTable();
+        } );
+    </script>
+@endpush

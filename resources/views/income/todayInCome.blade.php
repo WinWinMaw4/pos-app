@@ -1,4 +1,12 @@
 @extends('master')
+@section('head')
+    <style>
+        div.dataTables_wrapper div.dataTables_filter {
+            text-align: right;
+            display: none;
+        }
+    </style>
+@endsection
 @section('content')
 
 
@@ -44,7 +52,7 @@
             </div>
             @endif
         <div class="py-3 table-responsive-sm mb-5">
-            <table class="table table-hover table-borderless align-middle">
+            <table class="table table-hover table-borderless align-middle py-2" id="table_id">
                 <thead class="table-primary">
                 <tr class="">
                     <th>#</th>
@@ -115,62 +123,71 @@
         </div>
 
         <div class="my-2">
-            {{$vouchers->links()}}
+{{--            {{$vouchers->links()}}--}}
         </div>
         <form action="{{route('totalToday')}}" id="toDayInCome" method="post">
             @csrf
         </form>
 
 
-    </div>
 
-
-    <!-- Modal -->
-    @forelse($vouchers as $voucher)
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Today စာရင်းချုပ်</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="total-voucher d-flex justify-content-end p-3">
-                            <input type="hidden" name="date"  form="toDayInCome" value="{{today()}}">
-                            <label for="" class="text-black-50 me-1">Date : </label>
-                            {{now()}}
+        <!-- Modal -->
+        @forelse($vouchers as $voucher)
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Today စာရင်းချုပ်</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <div class="total-voucher d-flex justify-content-between align-items-center" >
-                                    <label for="">Total Voucher</label>
-                                    <input name="total_voucher"  form="toDayInCome" type="hidden" value="{{count(\App\Models\Voucher::whereDate('created_at',today())->get())}}" >
-                                    {{count(\App\Models\Voucher::whereDate('created_at',today())->get())}}
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="total-price d-flex justify-content-between align-items-center " name="total-price">
-                                    <label for="">Total Price</label>
-                                    <input type="hidden" form="toDayInCome" name="total_price" value="{{\App\Models\VoucherList::whereDate('created_at',today() )->sum('cost')}}">
-                                    <span>
+                        <div class="modal-body">
+                            <div class="total-voucher d-flex justify-content-end p-3">
+                                <input type="hidden" name="date"  form="toDayInCome" value="{{today()}}">
+                                <label for="" class="text-black-50 me-1">Date : </label>
+                                {{now()}}
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="total-voucher d-flex justify-content-between align-items-center" >
+                                        <label for="">Total Voucher</label>
+                                        <input name="total_voucher"  form="toDayInCome" type="hidden" value="{{count(\App\Models\Voucher::whereDate('created_at',today())->get())}}" >
+                                        {{count(\App\Models\Voucher::whereDate('created_at',today())->get())}}
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="total-price d-flex justify-content-between align-items-center " name="total-price">
+                                        <label for="">Total Price</label>
+                                        <input type="hidden" form="toDayInCome" name="total_price" value="{{\App\Models\VoucherList::whereDate('created_at',today() )->sum('cost')}}">
+                                        <span>
                                         {{\App\Models\VoucherList::whereDate('created_at',\Illuminate\Support\Carbon::today() )->sum('cost')}}
                                         <i>ks</i>
                                     </span>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="d-flex justify-content-end align-items-center p-3 text-end">
-                            <button type="button" class="btn btn-lg btn-secondary me-1" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" form="toDayInCome" class="btn btn-lg btn-primary">Done</button>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="d-flex justify-content-end align-items-center p-3 text-end">
+                                <button type="button" class="btn btn-lg btn-secondary me-1" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" form="toDayInCome" class="btn btn-lg btn-primary">Done</button>
+                            </div>
+
+
                         </div>
 
-
                     </div>
-
                 </div>
             </div>
-        </div>
-    @empty
-    @endforelse
+        @empty
+        @endforelse
+    </div>
+
+
+
 
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
+@endpush

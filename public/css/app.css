@@ -11301,3 +11301,21 @@ textarea.form-control-lg {
   margin-left: -0.25rem;
   overflow-y: auto;
 }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  color: #0d6efd !important;
+  padding: 0.1em 0.5em;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: #fff;
+  border: 1px solid #0d6efd !important;
+  background: linear-gradient(to bottom, rgb(14, 173, 222) 0%, rgb(77, 127, 255) 100%);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: #0d6efd !important;
+  border: 1px solid #0d6efd;
+  background: linear-gradient(to bottom, rgba(14, 173, 222, 0) 80%, rgb(77, 127, 255) 20%);
+}

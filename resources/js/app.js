@@ -3,6 +3,7 @@ window.$ = require('jquery');
 window.Swal =require("sweetalert2");
 window.dt = require('datatables.net');
 
+
 let allProductCart = document.querySelectorAll('.product-card');
 let allProductDetailModal = document.querySelectorAll('.productDetailModal');
 
@@ -53,20 +54,38 @@ function voucherListCreate(productId,title,productImg,price,quantity,cost){
     li.classList.add('voucher-list-item','list-group-item','d-flex','justify-content-between','align-items-center','px-0','pe-1','border-0');
     // li.setAttribute("data-index",index)
     li.innerHTML = `
-        <i class="fas fa-times text-danger remove-list px-2 voucher-list-del" data-product-id="${productId}" style="cursor: pointer"></i>
-        <img src="${productImg}" alt="" class="vourcher-product-img rounded-2 me-1" width="40px" height="40px">
-        <div class="w-50">
-            <h6 class="my-0 text-truncate voucher-product-name">${title}</h6>
-            <small class="text-muted unit-price voucher-product-price" >
-                ${price}
-            </small>
-            x
-            <small  class="text-muted unit-price voucher-product-quantity">
-                ${quantity}
-            </small>
+        <i class="fas fa-times text-danger remove-list px-2 voucher-list-del hide-in-print" data-product-id="${productId}" style="cursor: pointer"></i>
+        <img src="${productImg}" alt="" class="vourcher-product-img rounded-2 me-1 hide-in-print" width="40px" height="40px">
+        <div class="w-50 hide-in-print">
+           <div class="">
+                <h6 class="my-0 text-truncate voucher-product-name show-in-print-small-text">${title}</h6>
+                <div class="hide-in-print ">
+                    <small class="text-black-50 unit-price voucher-product-price" >
+                        ${price}
+                    </small>
+                    <span class="text-black-50">x</span>
+                    <small  class="text-black-50 unit-price voucher-product-quantity">
+                        ${quantity}
+                    </small>
+                </div>
+            </div>
         </div>
+        <div class="text-muted w-25 voucher-cost text-end hide-in-print">${cost}</div>
 
-        <div class="text-muted w-25 voucher-cost text-end">${cost}</div>
+<!--Show in Print-->
+        <div class="text-black-50 w-50 ps-2 show-in-print">
+            ${title}
+        </div>
+        <div class="small text-center text-nowrap show-in-print" style="width: 30%">
+            <p class="text-black-50 unit-price voucher-product-price mb-0" >
+                ${price} x  ${quantity}
+            </p>
+        </div>
+        <div class="text-black-50 voucher-cost text-end text-nowrap pe-2 show-in-print" style="width: 20%">${cost}</div>
+
+<!--End Show in print-->
+
+
     `;
     return li;
 }
@@ -283,11 +302,28 @@ console.log(storeVoucher.length);
                     voucherList.innerHTML = null
                     voucherListCount()
                     voucherTotal()
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Your Order Successed'
+                    })
                 }
             }).catch(function(error){
             console.log(error);
         })
 
+        window.print();
 
     }else{
         alert ('please select product')
@@ -305,6 +341,9 @@ console.log(storeVoucher.length);
 
 
 })
+
+
+
 
 
 

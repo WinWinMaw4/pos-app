@@ -42,7 +42,7 @@
         </div>
 
         <div class="py-3 table-responsive-sm mb-5">
-            <table class="table table-hover table-borderless align-middle">
+            <table class="table table-hover table-borderless align-middle py-2" id="table_id">
                 <thead class="table-primary">
                 <tr class="">
                     <th>#</th>
@@ -172,3 +172,10 @@
     @endforelse
 
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable();
+        } );
+    </script>
+@endpush

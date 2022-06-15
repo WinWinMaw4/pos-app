@@ -11,4 +11,7 @@ class VoucherList extends Model
     public function items(){
         return $this->belongsTo(Item::class,'item_id');
     }
+    public function itemsss(){
+        $this->belongsToMany(Item::class,'item_id');
+    }
 }

@@ -7,7 +7,10 @@
                     <a class="nav-link {{route('toDayInCome') == request()->url()? 'active':''}}" aria-current="page" href="{{route('toDayInCome')}}">Today Income</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Current Month InCome</a>
+                    <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Daily InCome</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{route('allInComeVouchers') == request()->url()? 'active':''}}" href="{{route('allInComeVouchers')}}">All InCome Voucher</a>
                 </li>
             </ul>
             <div class="">

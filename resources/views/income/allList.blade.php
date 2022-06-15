@@ -3,7 +3,7 @@
 
 
 
-    <div class="col-12 col-md-9 col-xl-10 vh-100 py-5 ps-3 mb-5">
+    <div class="col-12 col-md-9 col-xl-10 py-5 ps-3 mb-5">
         <div class="mb-4 d-flex justify-content-between align-items-center">
             <ul class="nav nav-pills">
                 <li class="nav-item">
@@ -44,7 +44,7 @@
             </div>
         @endif
         <div class="py-3 table-responsive-sm mb-5">
-            <table class="table table-hover table-borderless align-middle">
+            <table class="table table-hover table-borderless align-middle py-2" id="voucher_table">
                 <thead class="table-primary">
                 <tr class="">
                     <th>#</th>
@@ -112,7 +112,7 @@
                 </tbody>
             </table>
             <div class="my-2">
-                {{$vouchers->links()}}
+{{--                {{$vouchers->links()}}--}}
             </div>
         </div>
 
@@ -120,3 +120,11 @@
 
 
 @endsection
+@push('scripts')
+
+    <script>
+        $(document).ready( function () {
+            $('#voucher_table').DataTable();
+        } );
+    </script>
+@endpush

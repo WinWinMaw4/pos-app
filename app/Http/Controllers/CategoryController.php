@@ -19,7 +19,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest('id')->paginate(5);
+        $categories = Category::latest('id')->get();
         return view('category.list',['categories'=>$categories]);
     }
 

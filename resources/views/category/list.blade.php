@@ -21,7 +21,7 @@
         <h3>Category Lists</h3>
 
        <div class="py-3 table-responsive-sm">
-           <table class="table table-hover table-borderless align-middle">
+           <table class="table table-hover table-borderless align-middle py-2" id="category_table">
                <thead class="table-primary">
                <tr class="">
                    <th>#</th>
@@ -46,16 +46,16 @@
                        <td>{{$category->user->name}}</td>
                        <td class="text-center">
                            <div class="">
-                               <a href="{{route('categoryTypeDetail',$category->id)}}" class="btn btn-outline-info me-1">
+                               <a href="{{route('categoryTypeDetail',$category->id)}}" class="btn btn-sm btn-outline-info me-1">
                                    <i class="fa-solid fa-info-circle fa-fw"></i>
                                </a>
-                               <a href="{{route('category.edit',$category->id)}}" class="btn btn-outline-warning me-1">
+                               <a href="{{route('category.edit',$category->id)}}" class="btn btn-sm btn-outline-warning me-1">
                                    <i class="fa-solid fa-edit fa-fw"></i>
                                </a>
                                <form action="{{route('category.destroy',$category->id)}}" class="d-inline-flex" method="post">
                                    @csrf
                                    @method('delete')
-                                   <button class="btn btn-outline-danger me-1">
+                                   <button class="btn btn-sm btn-outline-danger me-1">
                                        <i class="fa-solid fa-trash-alt fa-fw"></i>
                                    </button>
                                </form>
@@ -84,10 +84,18 @@
        </div>
 
        <div class="">
-           {{$categories->links()}}
+{{--           {{$categories->links()}}--}}
        </div>
 
     </div>
 
 
 @endsection
+@push('scripts')
+
+    <script>
+        $(document).ready( function () {
+            $('#category_table').DataTable();
+        } );
+    </script>
+@endpush
