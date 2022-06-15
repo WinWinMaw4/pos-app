@@ -35,6 +35,12 @@
     //background-color: $primary;
     background: linear-gradient(to bottom, rgba(14, 173, 222, 0) 80%, rgb(77, 127, 255) 20%);
 }
-
+#itemPreview{
+    transition: .4s;
+    cursor: pointer;
+}
+#itemPreview:active{
+    transform: scale(0.95);
+}
 
 
