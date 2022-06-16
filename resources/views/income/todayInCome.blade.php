@@ -30,11 +30,11 @@
                <div class="">
                     <span class="p-2 border rounded-2 text-center me-1">
                         <lable class="text-black-50">Today InCome : </lable>
-                        {{\App\Models\VoucherList::whereDate('created_at',\Illuminate\Support\Carbon::today() )->sum('cost')}}
+                        {{\App\Models\VoucherList::whereDate('date',\Illuminate\Support\Carbon::today() )->sum('cost')}}
                     </span>
                     <span class="p-2 border rounded-2 text-center me-1">
                         <label class="text-black-50">Today Total Voucher :</label>
-                        {{count(\App\Models\Voucher::whereDate('created_at',\Illuminate\Support\Carbon::today())->get())}}
+                        {{count(\App\Models\Voucher::whereDate('date',\Illuminate\Support\Carbon::today())->get())}}
                     </span>
                </div>
             </div>
@@ -150,16 +150,16 @@
                                 <li class="list-group-item">
                                     <div class="total-voucher d-flex justify-content-between align-items-center" >
                                         <label for="">Total Voucher</label>
-                                        <input name="total_voucher"  form="toDayInCome" type="hidden" value="{{count(\App\Models\Voucher::whereDate('created_at',today())->get())}}" >
-                                        {{count(\App\Models\Voucher::whereDate('created_at',today())->get())}}
+                                        <input name="total_voucher"  form="toDayInCome" type="hidden" value="{{count(\App\Models\Voucher::whereDate('date',today())->get())}}" >
+                                        {{count(\App\Models\Voucher::whereDate('date',today())->get())}}
                                     </div>
                                 </li>
                                 <li class="list-group-item">
                                     <div class="total-price d-flex justify-content-between align-items-center " name="total-price">
                                         <label for="">Total Price</label>
-                                        <input type="hidden" form="toDayInCome" name="total_price" value="{{\App\Models\VoucherList::whereDate('created_at',today() )->sum('cost')}}">
+                                        <input type="hidden" form="toDayInCome" name="total_price" value="{{\App\Models\VoucherList::whereDate('date',today() )->sum('cost')}}">
                                         <span>
-                                        {{\App\Models\VoucherList::whereDate('created_at',\Illuminate\Support\Carbon::today() )->sum('cost')}}
+                                        {{\App\Models\VoucherList::whereDate('date',\Illuminate\Support\Carbon::today() )->sum('cost')}}
                                         <i>ks</i>
                                     </span>
                                     </div>

@@ -71,7 +71,7 @@
                                   </tr>
                               </thead>
                                <tbody>
-                               @foreach ($today_popular_item as $item)
+                               @forelse ($today_popular_item as $item)
                                    <tr>
                                        <td>
                                            <div class="rounded-circle overflow-hidden bg-secondary" style="height: 40px;width: 40px;">
@@ -85,13 +85,23 @@
                                        <td> {{$item->total_sales}}</td>
                                        <td>${{round($item->price * $item->total_sales,2)}}</td>
                                        <td class="w-25">
+                                           @if($item->total_sales)
+                                               <small class=""> {{round(($item->total_sales / $total_sale)*100)}}%</small>
+                                           @else
+                                               <small>0%</small>
+                                           @endif
                                            <div class="progress" style="height: .7rem">
-                                               <div class="progress-bar bg-primary" role="progressbar" style="width: {{round(($item->total_sales / $total_sale)*100)}}%" aria-valuemax="100"></div>
-                                              <small> {{round(($item->total_sales / $total_sale)*100)}}%</small>
+{{--                                               <div class="progress-bar bg-primary" role="progressbar" style="width:{{($item->total_sales) ? `round(($item->total_sales / $total_sale)*100)`:'0'}}%"  aria-valuemax="100"></div>--}}
+                                               <div class="progress-bar bg-primary position-relative " role="progressbar" style="width:@if($item->total_sales){{round(($item->total_sales / $total_sale)*100)}}@endif%"  aria-valuemax="100">
+
+                                               </div>
+
                                            </div>
                                        </td>
                                    </tr>
-                               @endforeach
+                               @empty
+                                   no Record Found
+                               @endforelse
                                </tbody>
 
                        </table>
@@ -134,8 +144,8 @@
 {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
     <script>
         let date = @json(collect($dailyVouchers)->pluck('date'));
-        let day = @json(collect($weeklyVouchers)->pluck('total_price'));
-        {{--let day = @json(collect($weeklyVouchers)->pluck('total_price'));--}}
+        let day = @json(collect($weeklyVouchers)->pluck('date'));
+        let weekly_total_price = @json(collect($weeklyVouchers)->pluck('total_price'));
 
         let total_price = @json(collect($dailyVouchers)->pluck('total_price'));
         let total_voucher = @json(collect($dailyVouchers)->pluck('total_voucher'));
@@ -183,10 +193,10 @@
         const myChart2 = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: ['Monday','Tuesday','Wednesday','Thursday','Friday','SaturDay','Dunday',],
+                labels: ['Monday','Tuesday','Wednesday','Thursday','Friday','SaturDay','Sunday',],
                 datasets: [{
                     label: 'Weekly Selling',
-                    data: day,
+                    data: weekly_total_price,
                     backgroundColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(255, 159, 64, 1)',

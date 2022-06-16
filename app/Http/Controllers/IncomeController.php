@@ -29,7 +29,7 @@ class IncomeController extends Controller
     }
 
     public function dailyInCome(){
-        $vouchers = DailyVoucher::latest('id')->whereMonth('date',Carbon::now()->month)->paginate(10);
+        $vouchers = DailyVoucher::latest('id')->whereMonth('date',Carbon::now()->month)->get();
         return view('income.dailyInCome',[
             'vouchers'=>$vouchers
         ]);

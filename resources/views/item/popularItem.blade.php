@@ -8,11 +8,11 @@
     </style>
 @endsection
 @section('content')
-   <div class="col-12 col-md-9 py-3">s
+   <div class="col-12 col-md-9 col-lg-10 py-3">
        <h1>Best Selling Product</h1>
 
           <div class="">
-              <table class="table table-hover align-middle pt-2 table-borderless" id="popular_item">
+              <table class="table table-hover align-middle pt-2 table-borderless" id="popularItem_table">
 
                   <thead class="table-primary align-middle">
                   <tr>
@@ -73,13 +73,12 @@
 @endsection
 @push('scripts')
 
+
     <script>
         $(document).ready( function () {
-            $('#popular_item').DataTable({
-                "searching": false
+            $('#popularItem_table').DataTable({
+                searching:true
             });
-
-
         } );
     </script>
 @endpush
