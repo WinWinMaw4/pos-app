@@ -19,8 +19,9 @@
 {{--                      <th colspan="5" class="text-end" style="background-color: #F7F7F7">{{\Illuminate\Support\Carbon::now()->toDayDateTimeString()}}--}}
 {{--                      </th>--}}
                       <th>#</th>
-                      <th colspan="2" >Product</th>
+                      <th colspan="2"class="w-100 overflow-hidden" >Product</th>
                       <th>Category</th>
+                      <th>Unit Price</th>
                       <th>Sales Qty</th>
                       <th>Sales Price</th>
                   </tr>
@@ -36,8 +37,9 @@
                                   </a>
                               </div>
                           </td>
-                          <td>{{$item->name}}</td>
-                          <td> {{$item->category->name}}</td>
+                          <td class="text-truncate">{{$item->name}}</td>
+                          <td > {{$item->category->name}}</td>
+                          <td> {{$item->price}}</td>
                           <td> {{$item->total_sales}}</td>
                           <td>${{round($item->price * $item->total_sales,2)}}</td>
                       </tr>

@@ -18,6 +18,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\ReportController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -39,10 +40,29 @@ Route::middleware('auth')->group(function(){
     Route::get('/all-income-list',[IncomeController::class,'allInComeVouchers'])->name('allInComeVouchers');
 
     Route::get('/daily-income',[IncomeController::class,'dailyInCome'])->name('dailyInCome');
+    Route::get('/monthly-income',[IncomeController::class,'monthlyInCome'])->name('monthlyInCome');
+
     Route::post('/income/total-today',[IncomeController::class,'totalToday'])->name('totalToday');
+    Route::post('/income/total-monthly',[IncomeController::class,'totalMonthly'])->name('totalMonthly');
+
     Route::get('/voucher-detail/{voucherId}',[VoucherController::class,'voucherDetail'])->name('voucherDetail');
     Route::get('/daily-voucher-list/{voucherDate}',[VoucherController::class,'voucherListDaily'])->name('voucherListDaily');
 
     Route::get('/dashboard',[HomeController::class,'dashboardView'])->name('dashboardView');
+
+//
+//    Route::get('/report',function (){
+////        return view('reportPDF.todayInComePdf');
+////        $pdf = App::make('dompdf.wrapper');
+////        return $pdf->stream();
+//
+//        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('reportPDF.todayInComePdf');
+//        return $pdf->download(date('d-m-y').'_InCome.pdf');
+//
+//    });
+
+    Route::get('/report-pdf',[ReportController::class,'toDayInComePDFView']);
+    Route::get('download-pdf', [ReportController::class, 'downloadPDF'])->name('download-pdf');
+
 });
 

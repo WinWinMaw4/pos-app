@@ -1,38 +1,76 @@
 @extends('master')
+@section('head')
+    <style>
+        #todayTotalInComeChart{
+            /*transform: rotateY(180deg);*/
+        }
+    </style>
+@endsection
 @section('content')
     <div class="col-12 col-md-9 col-lg-10 py-4">
        <div class="row row-cols-2">
            <div class="col">
-               <div class="bg-white shadow p-2" style="width: 600px;height:400px">
-                   <h3>Daily InCome</h3>
-                   <canvas id="myChart" class="w-100"></canvas>
-               </div>
+             <div class="row">
+                 <div class="col">
+                     <div class="bg-white card border-0 shadow p-2 pb-0" style="width: 600px;height:370px">
+                         <h3>Daily InCome</h3>
+                         <canvas id="myChart" class="w-100 "></canvas>
+                     </div>
+                 </div>
+                 <div class="col my-3">
+{{--                     background-image: linear-gradient(45deg,rebeccapurple,plum);--}}
+                     <div class="card border-0 shadow p-0 text-light position-relative overflow-hidden" style="width: 600px;height:130px;background: #a55ee0">
+                         <h3>Monthly InCome</h3>
+                         <div class="w-100 position-absolute bottom-0 start-0" style="height: 80%">
+                            <canvas id="monthlyInCome" class="w-100 position-absolute bottom-0" style="height: 100%;"></canvas>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
 
 
            </div>
+
            <div class="col">
                <div class="row">
                    <div class="col-6">
-                       <div class="card border-0 bg-primary">
-                           <div class="card-body text-light">
+                       <div class="card border-0 bg-primary pb-0">
+                           <div class="card-body text-light pb-0">
                                <h4 class="d-flex justify-content-between">
                                    Total Order
                                    <i class="fas fa-cart-plus"></i>
                                </h4>
-                               <h3 class="fw-bold counter-up">{{$todayVouchers->count('id')}}</h3>
+                               <div class="w-100 d-flex justify-content-end align-items-start position-relative" style="height: 120px">
+                                   <h3 class="fw-bold counter-up ">{{$todayVouchers->count('id')}}</h3>
+{{--                                   <h3 class="fw-bold counter-up">${{$todayVouchers->sum('total_price')}}</h3>--}}
+                                   <div class="w-75 position-absolute bottom-0 start-0" style="margin-left: -24px;margin-bottom:-8px;">
+                                       <canvas id="todayTotalOrderChart" class="w-100 m-0 p-0" ></canvas>
+                                   </div>
+                               </div>
+{{--                               <div class="d-flex position-relative" style="height: 120px">--}}
+{{--                                   <div class="w-100 w-75 position-absolute bottom-0 end-0" style="margin-left: -24px;margin-bottom:-8px ">--}}
+{{--                                       <canvas id="todayTotalOrderChart" class="w-100 m-0 p-0" ></canvas>--}}
+{{--                                   </div>--}}
+{{--                                   <h3 class="fw-bold counter-up text-end">{{$todayVouchers->count('id')}}</h3>--}}
 
-
+{{--                               </div>--}}
                            </div>
                        </div>
                    </div>
                    <div class="col-6">
-                       <div class="card border-0 bg-warning ">
-                           <div class="card-body text-light">
+                       <div class="card border-0 bg-warning pb-0">
+                           <div class="card-body text-light pb-0">
                                <h4 class="d-flex justify-content-between">
                                    Revenue
                                    <i class="fas fa-dollar"></i>
                                </h4>
-                               <h3 class="fw-bold counter-up">${{$todayVouchers->sum('total_price')}}</h3>
+                               <div class="w-100 d-flex justify-content-between align-items-sm-start position-relative" style="height: 120px">
+                                   <h3 class="fw-bold counter-up">${{$todayVouchers->sum('total_price')}}</h3>
+                                   <div class="w-75 position-absolute bottom-0 end-0" style="margin-right: -24px;margin-bottom:-8px ">
+                                       <canvas id="todayTotalInComeChart" class="w-100 m-0 p-0" ></canvas>
+                                   </div>
+                               </div>
 
                            </div>
                        </div>
@@ -145,18 +183,25 @@
     <script>
         let date = @json(collect($dailyVouchers)->pluck('date'));
         let day = @json(collect($weeklyVouchers)->pluck('date'));
+        let Day = @json(collect($Day)->pluck('date'));
+
         let weekly_total_price = @json(collect($weeklyVouchers)->pluck('total_price'));
+        let weekly_total_voucher = @json(collect($weeklyVouchers)->pluck('total_voucher'));
+        let monthly_income_price = @json(collect($monthlyInCome)->pluck('total_price'));
+        let monthly_income_month = @json(collect($monthlyInCome)->pluck('date'));
+
 
         let total_price = @json(collect($dailyVouchers)->pluck('total_price'));
         let total_voucher = @json(collect($dailyVouchers)->pluck('total_voucher'));
 
         let today_price = @json(collect($voucherLists)->pluck('cost'));
         let today_voucher = @json(collect($voucherLists)->count('voucher_id'));
-        console.log(day);
+
         {{--        let todayDate = @json(collect(\Illuminate\Support\Carbon::today()));--}}
 
 
         // console.log(total_price);
+        //Daily Income
         const ctx = document.getElementById('myChart');
         const myChart = new Chart(ctx, {
             type: 'line',
@@ -173,13 +218,17 @@
                     ],
                     // borderWidth: 1,
                     tension:0.4,
+                    // fill:'origin'
                     pointRadius:0
                 }]
             },
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true,
+                        beginAtZero: false,
+                        ticks:{
+                            // stepSize:3
+                        },
                     }
                 }
             },
@@ -188,34 +237,228 @@
             }
         });
 
-        //weekly Charts
-        const ctx2 = document.getElementById('weeklyChart');
-        const myChart2 = new Chart(ctx2, {
+
+        //Monthly Income
+        const ctx5 = document.getElementById('monthlyInCome');
+        const monthlyInCome = new Chart(ctx5, {
+            type: 'line',
+            data: {
+                labels: ['Jan','Feb','March','Apr','May','Jun'],
+                datasets: [{
+                    label: 'Monthly Income',
+                    data: monthly_income_price,
+                    backgroundColor: [
+                        'rgb(202,234,245)',
+                    ],
+                    borderColor: [
+                        'rgb(0,252,224)',
+                    ],
+                    borderWidth: 4,
+                    tension:0.2,
+                    fill:false
+                    // pointRadius:0
+                }]
+            },
+            options: {
+                plugins: {
+                    legend:{
+                        display:false
+                    }
+                },
+                scales: {
+                    x:{
+                        ticks:{
+                            display:true
+                        },
+                        grid:{
+                            display:false,
+                            drawOnChartArea:false,
+                            // borderWidth:0,
+                            drawBorder:false
+                        }
+                    },
+                    y: {
+                        beginAtZero: false,
+                        ticks:{
+                            display:false
+                        },
+                        grid:{
+                            display:false,
+                            drawOnChartArea:false,
+                            drawBorder:false
+                            // borderWidth:0,
+                        }
+                    }
+                }
+            },
+            plugins: {
+
+            }
+        });
+
+
+        //Today Order Chart
+        const ctx2 = document.getElementById('todayTotalOrderChart');
+        const todayTotalOrderChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels:  Day,
+                datasets: [{
+                    label: 'Total Order',
+                    data:total_price,
+                    backgroundColor: [
+                        'rgb(255,244,130)',
+                        // 'rgb(0,217,255)',
+                    ],
+                    borderColor: [
+                        'rgb(255,213,0)',
+                        'rgb(219,0,255)',
+                        'rgb(246,123,0)',
+                        'rgb(129,15,199)',
+                        'rgb(127,255,1)',
+                        'rgb(255,0,44)',
+
+                    ],
+                    // borderWidth: 1,
+                    tension:0.4,
+                    fill:'origin',
+                    // pointRadius:0
+                }]
+            },
+            options: {
+                plugins: {
+                    legend:{
+                        display:false
+                    }
+                },
+                scales: {
+                    x:{
+                        ticks:{
+                            display:false
+                        },
+                        grid:{
+                            display:false,
+                            drawOnChartArea:false,
+                            // borderWidth:0,
+                            drawBorder:false
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks:{
+                            display:false
+                        },
+                        grid:{
+                            display:false,
+                            drawOnChartArea:false,
+                            drawBorder:false
+                            // borderWidth:0,
+                        }
+                    }
+                }
+            },
+
+        });
+
+        //Today InCome Chart
+        const ctx3 = document.getElementById('todayTotalInComeChart');
+        const todayTotalInComeChart = new Chart(ctx3, {
             type: 'bar',
             data: {
-                labels: ['Monday','Tuesday','Wednesday','Thursday','Friday','SaturDay','Sunday',],
+                labels: Day,
+                datasets: [{
+                    label: 'Total InCome',
+                    data: total_price,
+                    backgroundColor: [
+                        'rgb(65,150,255)',
+                        'rgb(54,80,246)',
+                        'rgb(3,43,255)',
+                        'rgb(0,47,208)',
+                        'rgb(2,30,161)',
+                        'rgb(10,2,140)',
+                        'rgb(6,0,101)',
+                    ],
+                    borderColor: [
+                        'rgb(65,150,255)',
+                        'rgb(54,80,246)',
+                        'rgb(3,43,255)',
+                        'rgb(0,47,208)',
+                        'rgb(2,30,161)',
+                        'rgb(10,2,140)',
+                        'rgb(6,0,101)',
+                    ],
+                    borderWidth: 1,
+                    borderRadius:20,
+                    // borderSkipped:true,
+                    barPercentage:0.6,
+                    categoryPercentage:0.5
+                }]
+            },
+            options: {
+                plugins: {
+                    legend:{
+                        display:false
+                    }
+                },
+                scales: {
+                    x:{
+                        ticks:{
+                            display:false
+                        },
+                        grid:{
+                            display:false,
+                            drawOnChartArea:false,
+                            // borderWidth:0,
+                            drawBorder:false
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks:{
+                            display:false,
+
+                        },
+                        grid:{
+                            display:false,
+                            drawOnChartArea:false,
+                            drawBorder:false,
+                            borderWidth:3,
+                        }
+                    }
+                }
+            },
+
+        });
+
+
+        //weekly Charts
+        const ctx4 = document.getElementById('weeklyChart');
+        const myChart2 = new Chart(ctx4, {
+            type: 'bar',
+            data: {
+                labels: ['Monday','Tuesday','Wednesday','Thursday','Friday','SaturDay','Sunday'],
                 datasets: [{
                     label: 'Weekly Selling',
                     data: weekly_total_price,
                     backgroundColor: [
                         'rgba(255, 99, 132, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(255, 205, 86, 1)',
-                        'rgba(11,65,204,1)',
-                        'rgba(0,255,133,1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(201, 203, 207, 1)'
+                        'rgb(255,176,97)',
+                        'rgb(246,236,108)',
+                        'rgb(30,94,255)',
+                        'rgb(107,241,110)',
+                        'rgb(191,101,252)',
+                        'rgb(255,84,135)'
                     ],
                     borderColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 159, 64)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(0,255,133)',
-                        'rgb(153, 102, 255)',
-                        'rgb(201, 203, 207)'
+                        'rgb(255,42,91)',
+                        'rgb(255,136,15)',
+                        'rgb(211,197,0)',
+                        'rgb(0,71,255)',
+                        'rgb(0,180,3)',
+                        'rgb(155,16,252)',
+                        'rgb(255,6,79)'
                     ],
-                    borderWidth: 1,
+                    borderWidth: 2,
                     borderRadius:20,
                     borderSkipped:false,
                     barPercentage:0.5,
@@ -242,7 +485,7 @@
                     y: {
                         beginAtZero: true,
                         ticks:{
-                            display:true
+                            display:true,
                         },
                         grid:{
                             // display:false,

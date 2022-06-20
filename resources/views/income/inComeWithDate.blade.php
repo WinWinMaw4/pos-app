@@ -175,7 +175,9 @@
 @push('scripts')
     <script>
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable({
+                "order": [[ 1, "desc" ]],
+            });
         } );
     </script>
 @endpush

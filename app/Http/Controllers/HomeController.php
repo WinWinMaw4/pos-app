@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DailyVoucher;
 use App\Models\Item;
+use App\Models\MonthlyIncome;
 use App\Models\Voucher;
 use App\Models\VoucherList;
 use Carbon\CarbonPeriod;
@@ -34,10 +35,14 @@ class HomeController extends Controller
     }
 
     public function dashboardView(){
-        $dailyVouchers = DailyVoucher::whereMonth('date',Carbon::now()->month)->get();
+
+        $dailyVouchers = DailyVoucher::where('date','>=',Carbon::now()->subdays(15))->get();
         $todayVouchers = Voucher::whereDate('date',Carbon::now()->today())->get();
-        $weeklyVouchers = DailyVoucher::whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $weeklyVouchers = DailyVoucher::whereDate('date',Carbon::now()->subdays(7))->get();
+//        $weeklyVouchers = DailyVoucher::whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $Day = DailyVoucher::where('date','>=',Carbon::now()->subdays(7))->get();
         $voucherLists = VoucherList::whereDate('date',Carbon::now()->today())->get();
+        $monthlyInCome = MonthlyIncome::whereYear('date',Carbon::now()->year)->get();
         //total sale item
 //        $result = Item::addSelect([
 //            'total_sales' => VoucherList::whereColumn('item_id','Items.id')
@@ -48,7 +53,6 @@ class HomeController extends Controller
 //            ->whereMonth('date',Carbon::now()->month)
 //            ->selectRaw('count(voucher_id) as total_daily_vouchers')
 //        ])->get();
-//        return $dailyVouchers;
 
         $today_popular_item = Item::addSelect([
             'total_sales' => VoucherList::whereColumn('item_id','Items.id')
@@ -61,11 +65,14 @@ class HomeController extends Controller
             "dailyVouchers"=>$dailyVouchers,
             "todayVouchers"=>$todayVouchers,
             "weeklyVouchers"=>$weeklyVouchers,
+            "monthlyInCome"=>$monthlyInCome,
             "voucherLists"=>$voucherLists,
             'today_popular_item'=>$today_popular_item,
-            'total_sale'=>$total_sale
+            'total_sale'=>$total_sale,
+            'Day'=>$Day
         ]);
     }
+
 
 
 }

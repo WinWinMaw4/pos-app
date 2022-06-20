@@ -24,22 +24,21 @@
                 <li class="nav-item">
                     <a class="nav-link {{route('allInComeVouchers') == request()->url()? 'active':''}}" href="{{route('allInComeVouchers')}}">All InCome Voucher</a>
                 </li>
-
             </ul>
             <div class="">
                 <h6 class="text-end p-3"><i class="fas fa-calendar-alt calendar-icon"></i> : {{\Illuminate\Support\Carbon::now()->toDayDateTimeString()}} </h6>
-{{--                <input type="date" class="form-control form-control-sm w-25 " id="calendar-input" value="{{today()}}" onclick="calendarClick();">--}}
+                {{--                <input type="date" class="form-control form-control-sm w-25 " id="calendar-input" value="{{today()}}" onclick="calendarClick();">--}}
 
                 <div class="">
                    <span class="p-2 border rounded-2 text-center me-1">
                  <lable class="text-black-50">Current Month Income : </lable>
                    {{\App\Models\DailyVoucher::whereMonth('date',\Illuminate\Support\Carbon::now()->month )->sum('total_price')}}
                 </span>
-                  <span class="p-2 border rounded-2 text-center me-1">
+                    <span class="p-2 border rounded-2 text-center me-1">
                     <label class="text-black-50">Current Month Total Voucher :</label>
                      {{count(\App\Models\DailyVoucher::whereMonth('date',\Illuminate\Support\Carbon::now()->month )->get())}}
                 </span>
-              </div>
+                </div>
             </div>
         </div>
 
@@ -47,27 +46,27 @@
 
         <div class="d-flex justify-content-between">
             <h3>Monthly InCome Lists</h3>
-            <button class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Monthly စာရင်းချုပ်</button>
+            <button class="btn btn-lg btn-primary" disabled data-bs-toggle="modal" data-bs-target="#staticBackdrop">Yearly စာရင်းချုပ်</button>
         </div>
 
         <div class="py-3 table-responsive-sm">
-            <table class="table table-hover table-borderless align-middle py-2" id="monthlyInCome_table">
+            <table class="table table-hover table-borderless align-middle py-2" id="dailyInCome_table">
                 <thead class="table-primary">
                 <tr class="">
                     <th>#</th>
                     <th class="text-nowrap">Date</th>
-                    <th class="text-center">Total Voucher</th>
+                    <th class="text-center">Total Days</th>
                     <th class="text-center">Total Price</th>
                     <th class="text-center">Control</th>
                     <th class="text-end">Created_at</th>
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($vouchers as $voucher)
+                @forelse($monthlyInCome as $voucher)
                     <tr class="border-bottom">
                         <td>{{$voucher->id}}</td>
                         <td  class="text-nowrap">{{$voucher->date}}</td>
-                        <td class="text-center">{{$voucher->total_voucher}}</td>
+                        <td class="text-center">{{$voucher->total_day}}</td>
                         <td class="text-center">{{$voucher->total_price}}</td>
                         <td class="text-center">
                             <div class="">
@@ -99,7 +98,7 @@
                                 {{$voucher->created_at->format('h i a')}}
                             </p>
                         </td>
-{{--                                               {{$voucher->created_at->diffForHumans()}}--}}
+                        {{--                                               {{$voucher->created_at->diffForHumans()}}--}}
                     </tr>
 
                 @empty
@@ -112,16 +111,14 @@
         </div>
 
         <div class="">
-{{--            {{$vouchers->links()}}--}}
+            {{--            {{$vouchers->links()}}--}}
         </div>
 
-
-
-        <form action="{{route('totalMonthly')}}" id="toDayInCome" method="post">
+        <form action="{{route('totalToday')}}" id="toDayInCome" method="post">
             @csrf
         </form>
         <!-- Modal -->
-        @forelse($vouchers as $voucher)
+        @forelse($monthlyInCome as $voucher)
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -139,18 +136,18 @@
                                 <li class="list-group-item">
                                     <div class="total-voucher d-flex justify-content-between align-items-center" >
                                         <label for="">Total Voucher</label>
-                                            <input name="total_voucher"  form="toDayInCome" type="hidden" value="{{count(\App\Models\DailyVoucher::whereMonth('date',today())->get())}}" >
-                                            {{count(\App\Models\DailyVoucher::whereMonth('date',today())->get())}}
+{{--                                        <input name="total_voucher"  form="toDayInCome" type="hidden" value="{{count(\App\Models\Voucher::whereDate('date',today())->get())}}" >--}}
+{{--                                        {{count(\App\Models\Voucher::whereDate('date',today())->get())}}--}}
                                     </div>
                                 </li>
                                 <li class="list-group-item">
                                     <div class="total-price d-flex justify-content-between align-items-center " name="total-price">
                                         <label for="">Total Price</label>
-                                        <input type="hidden" form="toDayInCome" name="total_price" value="{{\App\Models\DailyVoucher::whereMonth('date',today() )->sum('total_price')}}">
-                                        <span>
-                                        {{\App\Models\DailyVoucher::whereMonth('date',\Illuminate\Support\Carbon::today() )->sum('total_price')}}
-                                        <i>ks</i>
-                                    </span>
+{{--                                        <input type="hidden" form="toDayInCome" name="total_price" value="{{\App\Models\VoucherList::whereDate('date',today() )->sum('cost')}}">--}}
+{{--                                        <span>--}}
+{{--                                        {{\App\Models\VoucherList::whereDate('date',\Illuminate\Support\Carbon::today() )->sum('cost')}}--}}
+{{--                                        <i>ks</i>--}}
+{{--                                    </span>--}}
                                     </div>
                                 </li>
                             </ul>
@@ -183,7 +180,7 @@
 {{--    </script>--}}
     <script>
         $(document).ready( function () {
-            $('#monthlyInCome_table').DataTable({
+            $('#dailyInCome_table').DataTable({
                 "order": [[ 1, "desc" ]],
             });
         } );

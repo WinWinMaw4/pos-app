@@ -5,12 +5,14 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\DailyVoucher;
 use App\Models\Item;
+use App\Models\MonthlyIncome;
 use App\Models\User;
 use App\Models\Voucher;
 use App\Models\VoucherList;
 use Carbon\CarbonPeriod;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -68,10 +70,23 @@ class DatabaseSeeder extends Seeder
         }
 
 
-        $period = CarbonPeriod::create('2022-06-1', '2022-06-14');
+        $period = CarbonPeriod::create('2022-01-1', today());
 
 
-        foreach ($period as $date){
+//        $month = Carbon::now()->subMonths(5);
+
+        $month = CarbonPeriod::create('2022-01-30', '1 month', '2022-06-30');
+        foreach ($month as $dt) {
+            $dt->format("Y-m-d");
+            $monthlyInCome = new MonthlyIncome();
+            $monthlyInCome->date = $dt;
+            $monthlyInCome->save();
+        }
+            $monthlyInComeTotalPrice = 0;
+
+            foreach ($period as $date){
+
+
             $dailyVoucher = new DailyVoucher();
             $dailyVoucher->date = $date->format('Y-m-d');
 //            $dailyVoucher->total_voucher = rand(1,15);
@@ -79,7 +94,7 @@ class DatabaseSeeder extends Seeder
             $dailyVoucherCount = 0;
             $dailyVoucherTotalPrice = 0;
 
-            for($v=1;$v<rand(5,10);$v++){
+            for($v=1;$v<rand(15,20);$v++){
                 $dailyVoucherCount ++;
                 $voucher = new Voucher();
                 $voucher->date = $date->format('Y-m-d');
@@ -108,7 +123,7 @@ class DatabaseSeeder extends Seeder
                 }
 
                 $voucher->update([
-                   "total_price" => $totalCost,
+                    "total_price" => $totalCost,
                     "total_item" => $totalItem,
                 ]);
 
@@ -122,8 +137,20 @@ class DatabaseSeeder extends Seeder
 
             ]);
 
+                $monthlyInCome = new MonthlyIncome();
+//                $monthlyInCome = MonthlyIncome::whereDate('date',date('m'))->first();
+
+                $monthlyInComeTotalPrice += $dailyVoucherTotalPrice;
+                $monthlyInCome->update([
+                    "total_price" => $monthlyInComeTotalPrice,
+
+                ]);
+
+
 
         }
+
+
 
 
 

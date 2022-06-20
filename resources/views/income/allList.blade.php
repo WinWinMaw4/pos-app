@@ -13,6 +13,9 @@
                     <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Daily InCome</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{route('monthlyInCome') == request()->url()? 'active':''}}" href="{{route('monthlyInCome')}}">Monthly Income</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{route('allInComeVouchers') == request()->url()? 'active':''}}" href="{{route('allInComeVouchers')}}">All InCome Voucher</a>
                 </li>
             </ul>
@@ -124,7 +127,9 @@
 
     <script>
         $(document).ready( function () {
-            $('#voucher_table').DataTable();
+            $('#voucher_table').DataTable({
+                "order": [[ 1, "desc" ]],
+            });
         } );
     </script>
 @endpush

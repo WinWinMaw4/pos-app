@@ -11,7 +11,7 @@
 
 
 
-    <div class="col-12 col-md-9 col-xl-10 vh-100 py-5 ps-3 mb-5">
+    <div class="col-12 col-md-9 col-lg-10 py-5 ps-3 mb-5">
         <div class="mb-4 d-flex justify-content-between align-items-center">
             <ul class="nav nav-pills">
                 <li class="nav-item">
@@ -19,6 +19,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Daily InCome</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{route('monthlyInCome') == request()->url()? 'active':''}}" href="{{route('monthlyInCome')}}">Monthly Income</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{route('allInComeVouchers') == request()->url()? 'active':''}}" href="{{route('allInComeVouchers')}}">All InCome Voucher</a>
@@ -44,11 +47,23 @@
 
         <div class="d-flex justify-content-between">
             <h3>Income Lists</h3>
-            <button class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Today စာရင်းချုပ်မယ်</button>
+            <div class="">
+{{--                <h3 class="hide-in-print"><a href="{{route('download-pdf')}}">Download with pdf format</a></h3>--}}
+                <a class="btn btn-lg btn-outline-primary" href="{{route('download-pdf')}}">Downlaod with Pdf</a>
+{{--                <a class="btn btn-lg btn-primary" href="/report-pdf">View with pdf</a>--}}
+                <button class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Today စာရင်းချုပ်မယ်</button>
+            </div>
         </div>
+        @if(session('pdfStatus'))
+            <div class="alert alert-success my-1 alert-dismissible fade show">
+                <a href="/report-pdf" class="text-decoration-none text-success"><strong>{{session('pdfStatus')}}</strong></a>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         @if(session('status'))
-            <div class="alert alert-success my-1">
-                {{session('status')}};
+            <div class="alert alert-success my-1 alert-dismissible fade show">
+                <strong>{{session('status')}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             @endif
         <div class="py-3 table-responsive-sm mb-5">
@@ -125,12 +140,10 @@
         <div class="my-2">
 {{--            {{$vouchers->links()}}--}}
         </div>
+
         <form action="{{route('totalToday')}}" id="toDayInCome" method="post">
             @csrf
         </form>
-
-
-
         <!-- Modal -->
         @forelse($vouchers as $voucher)
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -187,7 +200,9 @@
 @push('scripts')
     <script>
         $(document).ready( function () {
-            $('#table_id').DataTable();
+            $('#table_id').DataTable({
+                "order": [[ 1, "desc" ]],
+            });
         } );
     </script>
 @endpush
