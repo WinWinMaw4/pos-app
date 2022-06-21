@@ -184,8 +184,8 @@
                     <div class="show-in-print">
                         <h3 class="text-center text-primary py-2">POS RESTAURANT <i class="fa-solid fa-bell-concierge"></i></h3>
                         <small class="my-1 d-block">Date : {{ date('d-m-Y')}}</small>
-                        <small class="my-1 d-block">Customer:{{ucwords('Customer')}}</small>
-                        <small class="my-1 d-block">InvoiceNo : {{ strtoupper(uniqid()) }}</small>
+                        <small class="my-1 d-block">Customer: <span id="v_customer_name">{{ucwords('Customer')}}</span></small>
+                        <small class="my-1 d-block">InvoiceNo : <span id="v_invoice_number">{{ strtoupper(uniqid()) }}</span></small>
                     </div>
                     <ul class="list-group " id="voucherList">
                         <li class="head-row text-black-50 px-2 list-group-item d-flex align-items-center voucher-list-item show-in-print">

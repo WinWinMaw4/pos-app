@@ -278,30 +278,37 @@ window.addEventListener('load',function (){
 })
 
 
+function print(c_name,c_invoice){
+    document.getElementById("v_customer_name").innerText= c_name;
+    document.getElementById("v_invoice_number").innerText = c_invoice;
+    console.log(c_name,c_invoice)
+    window.print();
+}
+
 
 //send data to backend with axios
 let checkOutBtn = document.getElementsByClassName('checkout-btn')[0];
 checkOutBtn.addEventListener('click',function (){
-console.log(storeVoucher.length);
+// console.log(storeVoucher.length);
     if(storeVoucher.length !== 0){
         let data = {
             customer_name : document.getElementById("cName").value,
             invoice_number : document.getElementById("cIN").value,
             voucher_list : storeVoucher
         }
-        console.log(data);
+        // console.log(data);
 
 
         axios.post('/store-voucher',data)
             .then(function (response){
                 if(response.status === 200){
-                    console.log(response.data)
-                    // consloe.log(response.data)
+                    console.log('this is message',response.data);
+                    print(response.data.customer_name,response.data.invoice_number);
                     storeVoucher = [];
                     localStorage.setItem('storeVoucher',JSON.stringify(storeVoucher))
                     voucherList.innerHTML = null
-                    voucherListCount()
-                    voucherTotal()
+                    voucherListCount();
+                    voucherTotal();
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top',
@@ -322,8 +329,6 @@ console.log(storeVoucher.length);
             }).catch(function(error){
             console.log(error);
         })
-
-        window.print();
 
     }else{
         alert ('please select product')

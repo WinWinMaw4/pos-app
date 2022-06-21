@@ -73,11 +73,11 @@ class VoucherController extends Controller
 
         }
 
-        return response()->json([
-            "status" => 200,
-            "data"=>['message' => 'New Voucher created','total'=>$total],
-
-        ]);
+        return response()->json($voucher);
+//        return response()->json([
+////            "status" => 200,
+////            "data"=>['message' => 'New Voucher created','total'=>$total],
+//        ]);
     }
 
 }

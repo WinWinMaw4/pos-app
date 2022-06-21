@@ -70,20 +70,20 @@ class DatabaseSeeder extends Seeder
         }
 
 
-        $period = CarbonPeriod::create('2022-01-1', today());
 
 
 //        $month = Carbon::now()->subMonths(5);
-
         $month = CarbonPeriod::create('2022-01-30', '1 month', '2022-06-30');
         foreach ($month as $dt) {
             $dt->format("Y-m-d");
             $monthlyInCome = new MonthlyIncome();
             $monthlyInCome->date = $dt;
+            $monthlyInCome->total_day = rand(28,30);
+            $monthlyInCome->total_price = rand(150000,250000);
             $monthlyInCome->save();
         }
-            $monthlyInComeTotalPrice = 0;
 
+        $period = CarbonPeriod::create('2022-03-1', today());
             foreach ($period as $date){
 
 
@@ -136,16 +136,6 @@ class DatabaseSeeder extends Seeder
                 "total_voucher"=>$dailyVoucherCount
 
             ]);
-
-                $monthlyInCome = new MonthlyIncome();
-//                $monthlyInCome = MonthlyIncome::whereDate('date',date('m'))->first();
-
-                $monthlyInComeTotalPrice += $dailyVoucherTotalPrice;
-                $monthlyInCome->update([
-                    "total_price" => $monthlyInComeTotalPrice,
-
-                ]);
-
 
 
         }

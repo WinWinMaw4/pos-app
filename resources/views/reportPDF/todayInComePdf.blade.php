@@ -91,6 +91,7 @@
             <thead class="table-primary">
             <tr class="">
                 <th>#</th>
+                <th>voucher_id</th>
                 <th>Date</th>
                 <th class="">Customer Name</th>
                 <th class="text-nowrap">Invoice Number</th>
@@ -99,8 +100,11 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($vouchers as $voucher)
+            @forelse($vouchers as $key=>$voucher)
                 <tr class="border-bottom">
+                    <td>
+                        {{$key +1}}
+                    </td>
                     <td>
                         {{$voucher->id}}
                     </td>
