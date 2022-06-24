@@ -28,16 +28,17 @@ class PosController extends Controller
 //        $items = Category::find(8)->items;
 //        dd($items);
 
+
         if($request->search){
-            $items = Item::where('name','like','%'.$request->search.'%')
+            $items = Item::with('category')->where('name','like','%'.$request->search.'%')
                 ->orWhere('description','like','%'.$request->search.'%')
                 ->latest()->paginate(10)->withQueryString();
         }elseif($request->category){
-//            where("name","LIKE","%$request->category%")
             $items = Item::where("category_id","LIKE","%$request->category%")->paginate(5)->withQueryString();
         }else{
             $items = Item::latest()->paginate(20);
         }
+
 
         $categories = Category::all();
         return view('pos.index',[
