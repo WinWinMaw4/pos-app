@@ -64,14 +64,16 @@
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->price}}</td>
                                     <td>{{$item->category->name}}</td>
-                                    <td>{{$item->description}}</td>
+                                    <td>{{\Illuminate\Support\Str::limit($item->description,20)}}</td>
                                     <td>
                                         {{$item->voucherList->sum('quantity')}}
 
                                     </td>
                                     <td class="text-center text-nowrap">
                                         <div class="">
-
+                                            <a href="{{route('item.show',$item->id)}}" class="btn btn-outline-info btn-sm text-decoration-none me-1">
+                                                <i class="fas fa-exclamation-circle fa-fw fa-1x"></i>
+                                            </a>
                                             <a href="{{route('item.edit',$item->id)}}" class="btn btn-outline-warning btn-sm text-decoration-none me-1">
                                                 <i class="fas fa-edit fa-fw fa-1x"></i>
                                             </a>

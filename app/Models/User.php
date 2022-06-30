@@ -45,8 +45,11 @@ class User extends Authenticatable
     public function isSayarGyi():bool{
 
 //        return $this->role === 'sayargyi';
-        return $this->id === 1;
+        return $this->role === 'sayargyi';
 
+    }
+    public function isCasher():bool{
+        return $this->role === 'casher';
     }
 
 }

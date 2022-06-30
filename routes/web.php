@@ -31,6 +31,7 @@ Route::resource('/pos',PosController::class);
 
 
 Route::middleware('auth')->group(function(){
+    Route::get('/search',[HomeController::class,'search'])->name('search');
     Route::resource('/category',CategoryController::class);
     Route::get('/category-type-detail/{categoryId}',[CategoryController::class,'categoryTypeDetail'])->name('categoryTypeDetail');
     Route::resource('/item',ItemController::class);

@@ -89,7 +89,10 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return $item;
+        $item = Item::where('id',$item->id)->firstOrFail();
+        return view('item.show',[
+            "item"=>$item,
+        ]);
     }
 
     /**

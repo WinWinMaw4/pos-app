@@ -12,15 +12,15 @@
            <div class="col">
              <div class="row g-2">
                  <div class="col">
-                     <div class="bg-white card border-0 shadow p-2 pb-0" style="width: 600px;height:370px">
+                     <div class="bg-white card border-0 shadow p-3 pb-0" style="width: 600px;height:370px">
                          <h3>Daily InCome</h3>
                          <canvas id="myChart" class="w-100 "></canvas>
                      </div>
                  </div>
                  <div class="col my-3">
 {{--                     background-image: linear-gradient(45deg,rebeccapurple,plum);--}}
-                     <div class="card border-0 shadow p-0 text-light position-relative overflow-hidden" style="width: 600px;height:130px;background: #a55ee0">
-                         <h3>Monthly InCome</h3>
+                     <div class="card border-0 shadow p-0 text-light position-relative overflow-hidden" style="width: 600px;height:150px;background: #a55ee0">
+                         <h3 class="p-2">Monthly InCome</h3>
                          <div class="w-100 position-absolute bottom-0 start-0" style="height: 80%">
                             <canvas id="monthlyInCome" class="w-100 position-absolute bottom-0" style="height: 100%;"></canvas>
                          </div>
@@ -44,7 +44,7 @@
                                <div class="w-100 d-flex justify-content-end align-items-start position-relative" style="height: 120px">
                                    <h3 class="fw-bold counter-up ">{{$todayVouchers->count('id')}}</h3>
 {{--                                   <h3 class="fw-bold counter-up">${{$todayVouchers->sum('total_price')}}</h3>--}}
-                                   <div class="w-75 position-absolute bottom-0 start-0" style="margin-left: -24px;margin-bottom:-8px;">
+                                   <div class="w-100 position-absolute bottom-0 start-0" style="margin-left: -24px;margin-bottom:-8px;">
                                        <canvas id="todayTotalOrderChart" class="w-100 m-0 p-0" ></canvas>
                                    </div>
                                </div>

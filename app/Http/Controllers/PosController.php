@@ -27,23 +27,32 @@ class PosController extends Controller
 
 //        $items = Category::find(8)->items;
 //        dd($items);
-
-
         if($request->search){
-            $items = Item::with('category')->where('name','like','%'.$request->search.'%')
-                ->orWhere('description','like','%'.$request->search.'%')
+//            $items = Category::with('items')->where('name',$request->search)->latest()->paginate(10)->withQueryString();
+//            return $items;
+
+            $items = Item::where('name','like','%'.$request->search.'%')
+                ->orWhere('description','like','%'.$request->search.'%')->with('category')
                 ->latest()->paginate(10)->withQueryString();
+            $categorySearch = Category::where('name','like','%'.$request->search.'%')->with('items')->get();
+
+
         }elseif($request->category){
             $items = Item::where("category_id","LIKE","%$request->category%")->paginate(5)->withQueryString();
+            $categorySearch = null;
+//            $items = Category::with('items')->where('name',$request->category)->latest()->paginate(10)->withQueryString();
+//            return $items;
         }else{
             $items = Item::latest()->paginate(20);
-        }
+            $categorySearch = null;
 
+        }
 
         $categories = Category::all();
         return view('pos.index',[
             'items'=>$items,
             'categories'=>$categories,
+            'categorySearch'=>$categorySearch,
             ]);
     }
 

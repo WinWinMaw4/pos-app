@@ -126,7 +126,7 @@
         </div>
 
 <div class="page-break"></div>
-<div class="">Another Page</div>
+{{--<div class="">Another Page</div>--}}
 {{--    <script src="{{asset('js/app.js')}}"></script>--}}
 
 </body>

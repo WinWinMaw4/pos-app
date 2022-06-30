@@ -28,11 +28,19 @@ class DatabaseSeeder extends Seeder
         User::create([
             "name"=>"SaYarGyi",
             "email"=>"sayargyi@gmail.com",
+            "role"=>"sayargyi",
             "password"=>Hash::make('password')
         ]);
         User::create([
             "name"=>"WinWinMaw",
             "email"=>"wwm@gmail.com",
+            "role"=>"manager",
+            "password"=>Hash::make('password')
+        ]);
+        User::create([
+            "name"=>"casher1",
+            "email"=>"casher1@gmail.com",
+            "role"=>"casher",
             "password"=>Hash::make('password')
         ]);
 
@@ -64,7 +72,8 @@ class DatabaseSeeder extends Seeder
                 "name"=>$item->title,
                 "price"=>$item->price,
                 "photo" => $item->image,
-                "description"=>Str::limit($item->description,20),
+//                Str::limit($item->description,20)
+                "description"=>$item->description,
                 "category_id"=>rand(1,5),
             ]);
         }
@@ -73,7 +82,7 @@ class DatabaseSeeder extends Seeder
 
 
 //        $month = Carbon::now()->subMonths(5);
-        $month = CarbonPeriod::create('2022-01-30', '1 month', '2022-06-30');
+        $month = CarbonPeriod::create('2022-01-01', '1 month', today());
         foreach ($month as $dt) {
             $dt->format("Y-m-d");
             $monthlyInCome = new MonthlyIncome();

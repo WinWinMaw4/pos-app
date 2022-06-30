@@ -65,53 +65,59 @@
 
 <div class="container-fluid ">
     <div class="row">
-        <div class="col-12 col-md-3 col-lg-2 vh-100 bg-white shadow px-0 side-nav d-none d-md-block hide-in-print">
-            <div class="list-group px-0  bg-warning">
-                <a href="{{route('pos.index')}}" class="list-group-item list-group-item-action py-3">POS System</a>
-                <a href="{{route('category.index')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
-                    <div class="me-auto">
-                        <div class="fw-bold">
-                            <i class="fas fa-layer-group"></i>
-                            Category
-                        </div>
-                    </div>
-                    <span class="badge bg-primary rounded-pill">14</span>
-                </a>
-                <a href="{{route('item.index')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
-                    <div class="me-auto">
-                        <div class="fw-bold">
-                            <i class="fa-solid fa-dice-d6"></i>
-                            Items
-                        </div>
-                    </div>
-                </a>
-                <a href="{{route('popularItem')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
-                    <div class="me-auto">
-                        <div class="fw-bold">
-{{--                            <i class="fa-solid fa-dice-d6 "></i>--}}
-                            Popular Items
-                        </div>
-                    </div>
-                </a>
-                <a href="{{route('toDayInCome')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
-                    <div class="me-auto">
-                        <div class="fw-bold">
-                            <i class="fa-solid fa-dollar "></i>
-                            Incomes
-                        </div>
-                    </div>
-                </a>
-                <a href="{{route('dashboardView')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
-                    <div class="me-auto">
-                        <div class="fw-bold">
-                            <i class="fa-solid fa-grip "></i>
-                            Dashboard
-                        </div>
-                    </div>
-                </a>
+        @casher
 
+        @else
+            <div class="col-12 col-md-3 col-lg-2 vh-100 bg-white shadow px-0 side-nav d-none d-md-block hide-in-print">
+                <div class="list-group px-0  bg-warning">
+                    <a href="{{route('pos.index')}}" class="list-group-item list-group-item-action py-3">POS System</a>
+                    <a href="{{route('dashboardView')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
+                        <div class="me-auto">
+                            <div class="fw-bold">
+                                <i class="fa-solid fa-grip "></i>
+                                Dashboard
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{route('category.index')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
+                        <div class="me-auto">
+                            <div class="fw-bold">
+                                <i class="fas fa-layer-group"></i>
+                                Category
+                            </div>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">14</span>
+                    </a>
+                    <a href="{{route('item.index')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
+                        <div class="me-auto">
+                            <div class="fw-bold">
+                                <i class="fa-solid fa-dice-d6"></i>
+                                Items
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{route('popularItem')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
+                        <div class="me-auto">
+                            <div class="fw-bold">
+                                <i class="fa-solid fa-star "></i>
+                                Popular Items
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{route('toDayInCome')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start">
+                        <div class="me-auto">
+                            <div class="fw-bold">
+                                <i class="fa-solid fa-dollar "></i>
+                                Incomes
+                            </div>
+                        </div>
+                    </a>
+
+
+                </div>
             </div>
-        </div>
+
+            @endcasher
 
             @yield('content')
     </div>
