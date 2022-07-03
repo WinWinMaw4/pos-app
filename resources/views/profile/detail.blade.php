@@ -23,119 +23,337 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 col-xl-7">
+                    @if(isset($link))
+                        {{$link}}
                    <div class="my-5">
                        <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
-                           <li class="nav-item" role="presentation">
-                               <button class="nav-link active" id="pills-info-tab" data-bs-toggle="pill" data-bs-target="#pills-info" type="button">Profile Info</button>
-                           </li>
-                           <li class="nav-item" role="presentation">
-                               <button class="nav-link" id="pills-changePassword-tab" data-bs-toggle="pill" data-bs-target="#pills-changePassword" type="button">Change Password</button>
-                           </li>
+                          @if($link == 'profile-info')
+                               <li class="nav-item" role="presentation">
+                                   <button class="nav-link active" id="pills-info-tab" data-bs-toggle="pill" data-bs-target="#pills-info" type="button">Profile Info</button>
+                               </li>
+                               <li class="nav-item" role="presentation">
+                                   <button class="nav-link" id="pills-changePassword-tab" data-bs-toggle="pill" data-bs-target="#pills-changePassword" type="button">Change Password</button>
+                               </li>
+                          @elseif($link == 'change-password')
+                               <li class="nav-item" role="presentation">
+                                   <button class="nav-link " id="pills-info-tab" data-bs-toggle="pill" data-bs-target="#pills-info" type="button">Profile Info</button>
+                               </li>
+                               <li class="nav-item" role="presentation">
+                                   <button class="nav-link active" id="pills-changePassword-tab" data-bs-toggle="pill" data-bs-target="#pills-changePassword" type="button">Change Password</button>
+                               </li>
                        </ul>
 
                        <div class="tab-content" id="pills-tabContent">
-                           <div class="tab-pane fade show active" id="pills-info">
-                               <div class="">
-                                   <form action="{{route('updateProfile',\Illuminate\Support\Facades\Auth::id())}}" id="profileEditForm" method="post" enctype="multipart/form-data">
-                                       @csrf
-                                       @method('put')
-                                       <div class="">
-                                           <input type="file" name="photo" accept="image/jpeg,image/png" value="{{ old('photo',auth()->user()->photo) }}" class="d-none @error('photo') is-invalid @enderror">
-                                           @error('photo')
-                                           <div class="invalid-feedback ps-2">{{ $message }}</div>
-                                           @enderror
-                                       </div>
-                                       <div class="form-floating mb-3">
-                                           <input type="text" name="name" id="yName" class="form-control border-0 border-bottom @error('name') is-invalid @enderror" id="yourName" value="{{ old('name',auth()->user()->name) }}" placeholder="name@example.com">
-                                           <label for="yourName">Your Name</label>
-                                           @error('name')
-                                           <div class="invalid-feedback ps-2">{{ $message }}</div>
-                                           @enderror
-                                       </div>
-                                       <div class="form-floating mb-3">
-                                           <input type="email" id="yEmail" name="email"  class="form-control border-0 border-bottom" id="yourEmail" value="{{ old('email',auth()->user()->email) }}" placeholder="name@example.com">
-                                           <label for="yourEmail">Your Email</label>
-                                       </div>
-                                       <div class="form-floating mb-3">
-                                           <input type="number" name="phone" id="yPhone" class="form-control border-0 border-bottom @error('phone') is-invalid @enderror" id="yourPhone" value="{{ old('phone',auth()->user()->phone) }}" placeholder="09-------">
-                                           <label for="yourName">Phone Number</label>
-                                           @error('phone')
-                                           <div class="invalid-feedback ps-2">{{ $message }}</div>
-                                           @enderror
-                                       </div>
-                                       <div class="mb-3 border-bottom pb-2 px-2">
-                                           <label for="" class="small text-black-50 d-block">Gender</label>
-                                           <div class="form-check form-check-inline">
-                                               <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="male" value="male" {{old('gender',auth()->user()->gender) =='male' ? 'checked':''}} >
-                                               <label class="form-check-label" for="male">Male</label>
+                          @if($link == 'profile-info')
+                               <div class="tab-pane fade show active" id="pills-info">
+                                   <div class="">
+                                       <form action="{{route('updateProfile',\Illuminate\Support\Facades\Auth::id())}}" id="profileEditForm" method="post" enctype="multipart/form-data">
+                                           @csrf
+                                           @method('put')
+                                           <div class="">
+                                               <input type="file" name="photo" accept="image/jpeg,image/png" value="{{ old('photo',auth()->user()->photo) }}" class="d-none @error('photo') is-invalid @enderror">
+                                               @error('photo')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
                                            </div>
-                                           <div class="form-check form-check-inline">
-                                               <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="female" value="female" {{old('gender',auth()->user()->gender)=='female' ? 'checked':''}}>
-                                               <label class="form-check-label" for="female">Female</label>
+                                           <div class="form-floating mb-3">
+                                               <input type="text" name="name" id="yName" class="form-control border-0 border-bottom @error('name') is-invalid @enderror" id="yourName" value="{{ old('name',auth()->user()->name) }}" placeholder="name@example.com">
+                                               <label for="yourName">Your Name</label>
+                                               @error('name')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
                                            </div>
-                                           @error('gender')
-                                           <div class="invalid-feedback ps-2">{{ $message }}</div>
-                                           @enderror
+                                           <div class="form-floating mb-3">
+                                               <input type="email" id="yEmail" name="email"  class="form-control border-0 border-bottom" id="yourEmail" value="{{ old('email',auth()->user()->email) }}" placeholder="name@example.com">
+                                               <label for="yourEmail">Your Email</label>
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="number" name="phone" id="yPhone" class="form-control border-0 border-bottom @error('phone') is-invalid @enderror" id="yourPhone" value="{{ old('phone',auth()->user()->phone) }}" placeholder="09-------">
+                                               <label for="yourName">Phone Number</label>
+                                               @error('phone')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="mb-3 border-bottom pb-2 px-2">
+                                               <label for="" class="small text-black-50 d-block">Gender</label>
+                                               <div class="form-check form-check-inline">
+                                                   <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="male" value="male" {{old('gender',auth()->user()->gender) =='male' ? 'checked':''}} >
+                                                   <label class="form-check-label" for="male">Male</label>
+                                               </div>
+                                               <div class="form-check form-check-inline">
+                                                   <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="female" value="female" {{old('gender',auth()->user()->gender)=='female' ? 'checked':''}}>
+                                                   <label class="form-check-label" for="female">Female</label>
+                                               </div>
+                                               @error('gender')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
 
-                                       </div>
-                                       <div class="form-floating mb-3">
-                                           <input type="text" name="address" id="yAddress" class="form-control border-0 border-bottom @error('address') is-invalid @enderror" value="{{ old('address',auth()->user()->address) }}" placeholder="Yangon">
-                                           <label for="yAddress">Address</label>
-                                           @error('address')
-                                           <div class="invalid-feedback ps-2">{{ $message }}</div>
-                                           @enderror
-                                       </div>
-                                       <div class="text-start">
-                                           <button class="btn btn-lg btn-primary text-white" id="update-btn" type="submit">
-                                               Update Profile
-                                           </button>
-                                       </div>
-                                       {{--                            <a href="{{route('change-password')}}" class=" float-end">Change Password</a>--}}
-                                   </form>
-                               </div>
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="text" name="address" id="yAddress" class="form-control border-0 border-bottom @error('address') is-invalid @enderror" value="{{ old('address',auth()->user()->address) }}" placeholder="Yangon">
+                                               <label for="yAddress">Address</label>
+                                               @error('address')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="text-start">
+                                               <button class="btn btn-lg btn-primary text-white" id="update-btn" type="submit">
+                                                   Update Profile
+                                               </button>
+                                           </div>
+                                           {{--                            <a href="{{route('change-password')}}" class=" float-end">Change Password</a>--}}
+                                       </form>
+                                   </div>
 
-                           </div>
-                           <div class="tab-pane fade" id="pills-changePassword">
-                               <div class="">
-                                   <form action="{{route('updatePassword',\Illuminate\Support\Facades\Auth::id())}}" id="changePasswordForm" method="post">
-                                       @csrf
-                                       @method('put')
-                                       <div class="form-floating mb-3">
-                                           <input type="password" name="old_password" id="oldPassword" class="form-control border-0 border-bottom @error('old_password') is-invalid @enderror" value="{{ old('old_password') }}">
-                                           <label for="oldPassword">Current Password</label>
-                                           @error('old_password')
-                                           <div class="invalid-feedback ps-2">{{ $message }}</div>
-                                           @enderror
-                                       </div>
-                                       <div class="form-floating mb-3">
-                                           <input type="password" name="password" class="form-control border-0 border-bottom @error('password') is-invalid @enderror" id="newPassword" value="{{ old('password') }}" placeholder="">
-                                           <label for="newPassword">New Password</label>
-                                           @error('password')
-                                           <div class="invalid-feedback ps-2">{{ $message }}</div>
-                                           @enderror
-                                       </div>
-                                       <div class="form-floating mb-3">
-                                           <input type="password" name="password_confirmation" class="form-control border-0 border-bottom @error('password_confirmation') is-invalid @enderror" id="confirmPassword" value="" placeholder="">
-                                           <label for="confirmPassword">Confirm Password</label>
-                                           @error('password_confirmation')
-                                           <div class="invalid-feedback ps-2">{{ $message }}</div>
-                                           @enderror
-                                       </div>
-                                       <div class="text-start">
-                                           <button class="btn btn-lg btn-primary text-white" id="changePassword-btn" type="submit">
-                                               Change Password
-                                           </button>
-                                           <button class="btn btn-link" id="forgot-btn">
-                                               Forgot Password
-                                           </button>
-                                       </div>
-                                       {{--                            <a href="{{route('change-password')}}" class=" float-end">Change Password</a>--}}
-                                   </form>
                                </div>
-                           </div>
+                               <div class="tab-pane fade" id="pills-changePassword">
+                                   <div class="">
+                                       <form action="{{route('updatePassword',\Illuminate\Support\Facades\Auth::id())}}" id="changePasswordForm" method="post">
+                                           @csrf
+                                           @method('put')
+                                           <div class="form-floating mb-3">
+                                               <input type="password" name="old_password" id="oldPassword" class="form-control border-0 border-bottom @error('old_password') is-invalid @enderror" value="{{ old('old_password') }}">
+                                               <label for="oldPassword">Current Password</label>
+                                               @error('old_password')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="password" name="password" class="form-control border-0 border-bottom @error('password') is-invalid @enderror" id="newPassword" value="{{ old('password') }}" placeholder="">
+                                               <label for="newPassword">New Password</label>
+                                               @error('password')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="password" name="password_confirmation" class="form-control border-0 border-bottom @error('password_confirmation') is-invalid @enderror" id="confirmPassword" value="" placeholder="">
+                                               <label for="confirmPassword">Confirm Password</label>
+                                               @error('password_confirmation')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="text-start">
+                                               <button class="btn btn-lg btn-primary text-white" id="changePassword-btn" type="submit">
+                                                   Change Password
+                                               </button>
+                                               <button class="btn btn-link" id="forgot-btn">
+                                                   Forgot Password
+                                               </button>
+                                           </div>
+                                           {{--                            <a href="{{route('change-password')}}" class=" float-end">Change Password</a>--}}
+                                       </form>
+                                   </div>
+                               </div>
+                           @elseif($link == 'change-password')
+                               <div class="tab-pane fade " id="pills-info">
+                                   <div class="">
+                                       <form action="{{route('updateProfile',\Illuminate\Support\Facades\Auth::id())}}" id="profileEditForm" method="post" enctype="multipart/form-data">
+                                           @csrf
+                                           @method('put')
+                                           <div class="">
+                                               <input type="file" name="photo" accept="image/jpeg,image/png" value="{{ old('photo',auth()->user()->photo) }}" class="d-none @error('photo') is-invalid @enderror">
+                                               @error('photo')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="text" name="name" id="yName" class="form-control border-0 border-bottom @error('name') is-invalid @enderror" id="yourName" value="{{ old('name',auth()->user()->name) }}" placeholder="name@example.com">
+                                               <label for="yourName">Your Name</label>
+                                               @error('name')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="email" id="yEmail" name="email"  class="form-control border-0 border-bottom" id="yourEmail" value="{{ old('email',auth()->user()->email) }}" placeholder="name@example.com">
+                                               <label for="yourEmail">Your Email</label>
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="number" name="phone" id="yPhone" class="form-control border-0 border-bottom @error('phone') is-invalid @enderror" id="yourPhone" value="{{ old('phone',auth()->user()->phone) }}" placeholder="09-------">
+                                               <label for="yourName">Phone Number</label>
+                                               @error('phone')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="mb-3 border-bottom pb-2 px-2">
+                                               <label for="" class="small text-black-50 d-block">Gender</label>
+                                               <div class="form-check form-check-inline">
+                                                   <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="male" value="male" {{old('gender',auth()->user()->gender) =='male' ? 'checked':''}} >
+                                                   <label class="form-check-label" for="male">Male</label>
+                                               </div>
+                                               <div class="form-check form-check-inline">
+                                                   <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="female" value="female" {{old('gender',auth()->user()->gender)=='female' ? 'checked':''}}>
+                                                   <label class="form-check-label" for="female">Female</label>
+                                               </div>
+                                               @error('gender')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="text" name="address" id="yAddress" class="form-control border-0 border-bottom @error('address') is-invalid @enderror" value="{{ old('address',auth()->user()->address) }}" placeholder="Yangon">
+                                               <label for="yAddress">Address</label>
+                                               @error('address')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="text-start">
+                                               <button class="btn btn-lg btn-primary text-white" id="update-btn" type="submit">
+                                                   Update Profile
+                                               </button>
+                                           </div>
+                                           {{--                            <a href="{{route('change-password')}}" class=" float-end">Change Password</a>--}}
+                                       </form>
+                                   </div>
+
+                               </div>
+                               <div class="tab-pane fade show active" id="pills-changePassword">
+                                   <div class="">
+                                       <form action="{{route('updatePassword',\Illuminate\Support\Facades\Auth::id())}}" id="changePasswordForm" method="post">
+                                           @csrf
+                                           @method('put')
+                                           <div class="form-floating mb-3">
+                                               <input type="password" name="old_password" id="oldPassword" class="form-control border-0 border-bottom @error('old_password') is-invalid @enderror" value="{{ old('old_password') }}">
+                                               <label for="oldPassword">Current Password</label>
+                                               @error('old_password')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="password" name="password" class="form-control border-0 border-bottom @error('password') is-invalid @enderror" id="newPassword" value="{{ old('password') }}" placeholder="">
+                                               <label for="newPassword">New Password</label>
+                                               @error('password')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="password" name="password_confirmation" class="form-control border-0 border-bottom @error('password_confirmation') is-invalid @enderror" id="confirmPassword" value="" placeholder="">
+                                               <label for="confirmPassword">Confirm Password</label>
+                                               @error('password_confirmation')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="text-start">
+                                               <button class="btn btn-lg btn-primary text-white" id="changePassword-btn" type="submit">
+                                                   Change Password
+                                               </button>
+                                               <button class="btn btn-link" id="forgot-btn">
+                                                   Forgot Password
+                                               </button>
+                                           </div>
+                                           {{--                            <a href="{{route('change-password')}}" class=" float-end">Change Password</a>--}}
+                                       </form>
+                                   </div>
+                               </div>
+                           @else
+                               <div class="tab-pane fade show active" id="pills-info">
+                                   <div class="">
+                                       <form action="{{route('updateProfile',\Illuminate\Support\Facades\Auth::id())}}" id="profileEditForm" method="post" enctype="multipart/form-data">
+                                           @csrf
+                                           @method('put')
+                                           <div class="">
+                                               <input type="file" name="photo" accept="image/jpeg,image/png" value="{{ old('photo',auth()->user()->photo) }}" class="d-none @error('photo') is-invalid @enderror">
+                                               @error('photo')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="text" name="name" id="yName" class="form-control border-0 border-bottom @error('name') is-invalid @enderror" id="yourName" value="{{ old('name',auth()->user()->name) }}" placeholder="name@example.com">
+                                               <label for="yourName">Your Name</label>
+                                               @error('name')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="email" id="yEmail" name="email"  class="form-control border-0 border-bottom" id="yourEmail" value="{{ old('email',auth()->user()->email) }}" placeholder="name@example.com">
+                                               <label for="yourEmail">Your Email</label>
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="number" name="phone" id="yPhone" class="form-control border-0 border-bottom @error('phone') is-invalid @enderror" id="yourPhone" value="{{ old('phone',auth()->user()->phone) }}" placeholder="09-------">
+                                               <label for="yourName">Phone Number</label>
+                                               @error('phone')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="mb-3 border-bottom pb-2 px-2">
+                                               <label for="" class="small text-black-50 d-block">Gender</label>
+                                               <div class="form-check form-check-inline">
+                                                   <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="male" value="male" {{old('gender',auth()->user()->gender) =='male' ? 'checked':''}} >
+                                                   <label class="form-check-label" for="male">Male</label>
+                                               </div>
+                                               <div class="form-check form-check-inline">
+                                                   <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="female" value="female" {{old('gender',auth()->user()->gender)=='female' ? 'checked':''}}>
+                                                   <label class="form-check-label" for="female">Female</label>
+                                               </div>
+                                               @error('gender')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="text" name="address" id="yAddress" class="form-control border-0 border-bottom @error('address') is-invalid @enderror" value="{{ old('address',auth()->user()->address) }}" placeholder="Yangon">
+                                               <label for="yAddress">Address</label>
+                                               @error('address')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="text-start">
+                                               <button class="btn btn-lg btn-primary text-white" id="update-btn" type="submit">
+                                                   Update Profile
+                                               </button>
+                                           </div>
+                                           {{--                            <a href="{{route('change-password')}}" class=" float-end">Change Password</a>--}}
+                                       </form>
+                                   </div>
+
+                               </div>
+                               <div class="tab-pane fade" id="pills-changePassword">
+                                   <div class="">
+                                       <form action="{{route('updatePassword',\Illuminate\Support\Facades\Auth::id())}}" id="changePasswordForm" method="post">
+                                           @csrf
+                                           @method('put')
+                                           <div class="form-floating mb-3">
+                                               <input type="password" name="old_password" id="oldPassword" class="form-control border-0 border-bottom @error('old_password') is-invalid @enderror" value="{{ old('old_password') }}">
+                                               <label for="oldPassword">Current Password</label>
+                                               @error('old_password')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="password" name="password" class="form-control border-0 border-bottom @error('password') is-invalid @enderror" id="newPassword" value="{{ old('password') }}" placeholder="">
+                                               <label for="newPassword">New Password</label>
+                                               @error('password')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="form-floating mb-3">
+                                               <input type="password" name="password_confirmation" class="form-control border-0 border-bottom @error('password_confirmation') is-invalid @enderror" id="confirmPassword" value="" placeholder="">
+                                               <label for="confirmPassword">Confirm Password</label>
+                                               @error('password_confirmation')
+                                               <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                               @enderror
+                                           </div>
+                                           <div class="text-start">
+                                               <button class="btn btn-lg btn-primary text-white" id="changePassword-btn" type="submit">
+                                                   Change Password
+                                               </button>
+                                               <button class="btn btn-link" id="forgot-btn">
+                                                   Forgot Password
+                                               </button>
+                                           </div>
+                                           {{--                            <a href="{{route('change-password')}}" class=" float-end">Change Password</a>--}}
+                                       </form>
+                                   </div>
+                               </div>
+                           @endif
                        </div>
 
                    </div>
+
+                    @else
+                        <h1>
+                            Hellow My Profile Detail
+                        </h1>
+                    @endif
 
                 </div>
 

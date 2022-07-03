@@ -40,7 +40,9 @@ class UserController extends Controller
         $user->gender = $request->gender;
         $user->address = $request->address;
         $user->update();
-        return redirect()->route('profileDetail')->with('status','profile update');
+                return redirect()->to(url('user/profile/profile-detail/profile-info'));
+
+//        return redirect()->route('profileDetail')->with('status','profile update');
 
 //
 //        return response()->json([
@@ -63,7 +65,9 @@ class UserController extends Controller
 
         ]);
         if(!Hash::check($request->old_password,auth()->user()->password)){
-            return redirect()->back()->withErrors(['old_password'=>"password don't match"]);
+            return redirect()->to(url('user/profile/profile-detail/change-password'));
+
+//            return redirect()->back()->withErrors(['old_password'=>"password don't match"]);
         }
 
 
