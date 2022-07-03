@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,20 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('/pos',PosController::class);
 
 
+Route::prefix('/user/profile')->group(function(){
+    Route::get('/profile-detail',[UserController::class,'profileDetail'])->name('profileDetail');
+    Route::put('/profile-edit/{id}',[UserController::class,'updateProfile'])->name('updateProfile');
+    Route::get('/change-password',[UserController::class,'changePassword'])->name('changePassword');
+
+    Route::put('/update-password/{id}',[UserController::class,'updatePassword'])->name('updatePassword');
+
+
+});
+
 Route::middleware('auth')->group(function(){
+
+
+
     Route::get('/search',[HomeController::class,'search'])->name('search');
     Route::resource('/category',CategoryController::class);
     Route::get('/category-type-detail/{categoryId}',[CategoryController::class,'categoryTypeDetail'])->name('categoryTypeDetail');

@@ -43,13 +43,17 @@
                 @endguest
 
                 @auth()
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown me-3">
                         <a class="nav-link dropdown-toggle text-primary text-capitalize" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @if(auth()->user()->photo == null)
+                                <img src="{{asset('storage/user-default.png')}}" class="user-img rounded-circle border border-2 border-black shadow-sm" alt="" style="width: 30px;height: 30px;object-fit: cover">
+                            @else
+                                <img src="{{asset('storage/profile/'.auth()->user()->photo)}}" class="user-img rounded-circle border border-2 border-black shadow-sm" alt="" style="width: 30px;height: 30px;object-fit: cover">
+                            @endif
                             {{auth()->user()->name}}
-                            <img src="{{asset(auth()->user()->photo)}}" class="user-img rounded-circle border border-2 border-white shadow-sm" alt="">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="{{route('profileDetail')}}">Edit Profile</a></li>
                             <li><a class="dropdown-item" href="#">Change Password</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Log Out</a></li>
