@@ -33,12 +33,8 @@ Route::resource('/pos',PosController::class);
 
 Route::prefix('/user/profile')->middleware('auth')->group(function(){
     Route::get('/profile-detail',[UserController::class,'profileDetail'])->name('profileDetail');
-    Route::get('/profile-detail/{link}',function ($link){
-        return view('profile.detail',['link' => $link]);
-    });
     Route::put('/profile-edit/{id}',[UserController::class,'updateProfile'])->name('updateProfile');
     Route::get('/change-password',[UserController::class,'changePassword'])->name('changePassword');
-
     Route::put('/update-password/{id}',[UserController::class,'updatePassword'])->name('updatePassword');
 
 
