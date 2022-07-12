@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('voucher_lists', function (Blueprint $table) {
             $table->id();
             $table->foreignId('voucher_id')->constrained();
-            $table->foreignId('item_id')->constrained();
+            $table->integer('item_id');
             $table->string('item_name');
             $table->integer('quantity');
             $table->double('unit_price');

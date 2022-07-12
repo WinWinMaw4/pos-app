@@ -40,9 +40,9 @@ class UserController extends Controller
         $user->gender = $request->gender;
         $user->address = $request->address;
         $user->update();
-                return redirect()->to(url('user/profile/profile-detail/profile-info'));
+//                return redirect()->to(url('user/profile/profile-detail/profile-info'));
 
-//        return redirect()->route('profileDetail')->with('status','profile update');
+        return redirect()->route('profileDetail')->with('status','profile update');
 
 //
 //        return response()->json([

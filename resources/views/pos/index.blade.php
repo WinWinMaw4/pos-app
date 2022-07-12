@@ -24,7 +24,10 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-
+            transition: .4s;
+        }
+        .pos-card-img-top:hover{
+            transform: scale(1.09);
         }
         .pos-card .content {
             position: absolute;
@@ -333,7 +336,7 @@
                                         <div class="content d-flex justify-content-between align-items-center">
                                             <p class="h4 mb-0 product-name text-truncate">{{$item->name}}</p>
                                             <p class="fw-bold product-price mb-0">${{$item->price}}</p>
-                                            <p class="small">{{$item->category->name}}</p>
+{{--                                            <p class="small">{{$item->category->name}}</p>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -358,7 +361,7 @@
                                                 <div class="content d-flex justify-content-between align-items-center">
                                                     <p class="h4 mb-0 product-name text-truncate">{{$item->name}}</p>
                                                     <p class="fw-bold product-price mb-0">${{$item->price}}</p>
-                                                    <p class="small">{{$item->category->name}}</p>
+{{--                                                    <p class="small">{{$item->category->name}}</p>--}}
                                                 </div>
                                             </div>
                                         </div>

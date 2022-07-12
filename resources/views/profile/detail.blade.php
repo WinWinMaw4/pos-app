@@ -124,7 +124,7 @@
                                                <button class="btn btn-lg btn-primary text-white" id="changePassword-btn" type="submit">
                                                    Change Password
                                                </button>
-                                               <button class="btn btn-link" id="forgot-btn">
+                                               <button class="btn btn-link" disabled id="forgot-btn">
                                                    Forgot Password
                                                </button>
                                            </div>

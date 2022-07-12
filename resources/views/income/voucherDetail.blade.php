@@ -1,4 +1,5 @@
 @extends('master')
+@section('income_select','active')
 @section('content')
     <div class="col-12 col-md-9 col-xl-10 vh-100 py-5 ps-3">
         <div class="mb-4 d-flex justify-content-between align-items-center">
@@ -10,8 +11,12 @@
                     <a class="nav-link {{route('dailyInCome') == request()->url()? 'active':''}}" href="{{route('dailyInCome')}}">Daily InCome</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{route('monthlyInCome') == request()->url()? 'active':''}}" href="{{route('monthlyInCome')}}">Monthly Income</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{route('allInComeVouchers') == request()->url()? 'active':''}}" href="{{route('allInComeVouchers')}}">All InCome Voucher</a>
                 </li>
+
             </ul>
             <div class="">
                 <h6 class="text-end p-3">Date : {{\Illuminate\Support\Carbon::now()->toDayDateTimeString()}}</h6>

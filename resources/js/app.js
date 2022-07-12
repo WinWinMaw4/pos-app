@@ -99,7 +99,7 @@ function calcCost(quantityElement){
         if (isNaN(quantityElement.value) || quantityElement.value <= 0) {
             productModalCost[i].innerText = currentPrice;
         } else {
-            productModalCost[i].innerText = quantityElement.valueAsNumber * currentPrice;
+            productModalCost[i].innerText = (quantityElement.valueAsNumber * currentPrice).toFixed(2);
         }
 
     }
@@ -299,7 +299,7 @@ checkOutBtn.addEventListener('click',function (){
         // console.log(data);
 
 
-        axios.post('/store-voucher',data)
+        axios.post('/income/store-voucher',data)
             .then(function (response){
                 if(response.status === 200){
                     console.log('this is message',response.data);

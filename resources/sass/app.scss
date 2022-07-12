@@ -4,11 +4,13 @@
 // Variables
 @import 'variables';
 
+$primary : #00558a;
+$success : #02fd7d;
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 //@import "~sweetalert2";
-
 .side-nav {
     position: sticky;
     top: 3rem;
@@ -17,6 +19,20 @@
     padding-left: .25rem;
     margin-left: -.25rem;
     overflow-y: auto;
+}
+.list-group-item{
+    transition: .4s;
+}
+
+.list-group-item.active {
+    z-index: 2;
+    color: #000;
+    background-color: #ffffff;
+    border-color: $primary;
+    border-left-width: 10px;
+    /* border: none; */
+    /* border-right-width: 5px; */
+    border-left-color: $primary;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     color:$primary !important;

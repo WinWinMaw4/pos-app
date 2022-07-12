@@ -107,8 +107,7 @@
                 <div id=""   class="w-100 border border-1 rounded-3  @error('photo') border-danger is-invalid @enderror" value="{{ old('photo')}} "  style="height: 300px;overflow: hidden">
                     <img src="{{asset('image-default.png')}}" form="itemAdd" id="itemPreview" class="item-img w-100" style="height: 100%;object-fit: cover;" alt="">
                 </div>
-
-                @if($errors->any())
+                                @if($errors->any())
                     <ul class="py-5">
                         @foreach($errors->all() as $error)
                             <li class="text-danger">{{ $error }}</li>

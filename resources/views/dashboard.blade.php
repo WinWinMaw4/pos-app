@@ -44,7 +44,7 @@
                                <div class="w-100 d-flex justify-content-end align-items-start position-relative" style="height: 120px">
                                    <h3 class="fw-bold counter-up ">{{$todayVouchers->count('id')}}</h3>
 {{--                                   <h3 class="fw-bold counter-up">${{$todayVouchers->sum('total_price')}}</h3>--}}
-                                   <div class="w-100 position-absolute bottom-0 start-0" style="margin-left: -24px;margin-bottom:-8px;">
+                                   <div class=" position-absolute bottom-0 start-0" style="width:80%;margin-left: -24px;margin-bottom:-8px;">
                                        <canvas id="todayTotalOrderChart" class="w-100 m-0 p-0" ></canvas>
                                    </div>
                                </div>
@@ -104,6 +104,7 @@
 
                               <thead>
                                   <tr>
+{{--                                      toDayDateTimeString()--}}
                                       <th colspan="6" class="text-end" style="background-color: #F7F7F7">{{\Illuminate\Support\Carbon::now()->toDayDateTimeString()}}
                                       </th>
                                   </tr>

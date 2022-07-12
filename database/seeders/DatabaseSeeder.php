@@ -29,18 +29,21 @@ class DatabaseSeeder extends Seeder
             "name"=>"SaYarGyi",
             "email"=>"sayargyi@gmail.com",
             "role"=>"sayargyi",
+            "photo"=>null,
             "password"=>Hash::make('password')
         ]);
         User::create([
             "name"=>"WinWinMaw",
             "email"=>"wwm@gmail.com",
             "role"=>"manager",
+            "photo"=>null,
             "password"=>Hash::make('password')
         ]);
         User::create([
             "name"=>"casher1",
             "email"=>"casher1@gmail.com",
             "role"=>"casher",
+            "photo"=>null,
             "password"=>Hash::make('password')
         ]);
 
@@ -118,7 +121,7 @@ class DatabaseSeeder extends Seeder
                     $item = Item::where("id",rand(1,20))->first();
                     $totalItem ++ ;
                     $quantity = rand(1,15);
-                    $cost =$item->price * $quantity;
+                    $cost =floatval($item->price * $quantity);
                     $totalCost += $cost;
                     VoucherList::factory()->create([
                         "voucher_id"=>$voucher->id,
