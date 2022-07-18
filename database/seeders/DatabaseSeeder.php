@@ -71,8 +71,8 @@ class DatabaseSeeder extends Seeder
 
 //        https://fakestoreapi.com/products
 //        https://foodish-api.herokuapp.com/
-//        $items = \Illuminate\Support\Facades\Http::get("https://fakestoreapi.com/products")->object();
-        $items = [];
+        $items = \Illuminate\Support\Facades\Http::get("https://fakestoreapi.com/products")->object();
+//        $items = [];
         foreach ($items as $item){
             Item::factory()->create([
                 "name"=>$item->title,

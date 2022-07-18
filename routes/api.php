@@ -17,6 +17,5 @@ use App\Http\Controllers\FoodApiController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/items',[FoodApiController::class,'index']);
-Route::get('/item/{id}',[FoodApiController::class,'show']);
+Route::apiResource('items',FoodApiController::class);
 

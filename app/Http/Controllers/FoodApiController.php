@@ -30,7 +30,28 @@ class FoodApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validator = $request->validate([
+            //unique:table,column
+            "name" => "required|unique:items,name|min:3|max:50",
+            "category_id" => "required",
+            "price"=>"required",
+            "description"=>"nullable|max:100",
+            "photo" => "required|max:5000"
+        ]);
+            $item = new Item();
+            $item->name = ucwords($request->name);
+            $item->category_id = $request->category_id;
+            $item->price = $request->price;
+            $item->description = $request->description;
+            $item->photo = $request->photo;
+            $item->save();
+
+            return response()->json([
+                'message'=>'item created',
+                'data'=>$item
+            ],201);
+
     }
 
     /**
@@ -65,7 +86,40 @@ class FoodApiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+//        $validator = $request->validate([
+//            //unique:table,column
+//            "name" => "required|unique:items,name,".$id."|min:3|max:50",
+//            "category_id" => "required",
+//            "price"=>"required",
+//            "description"=>"nullable|max:100",
+//            "photo" => "required|max:5000"
+//        ]);
+
+        $item = Item::find($id);
+
+        if($request->has('name')){
+            $item->name = ucwords($request->name);
+        }
+        if($request->has('category_id')){
+            $item->category_id = $request->category_id;
+        }
+        if($request->has('price')){
+            $item->price = $request->price;
+        }
+        if($request->has('description')){
+            $item->description = $request->description;
+        }
+        if($request->has('photo')){
+            $item->photo = $request->photo;
+        }
+
+        $item->update();
+
+        return response()->json([
+            'message'=>'update success',
+            'data'=>$item,
+        ],200);
     }
 
     /**
@@ -76,6 +130,20 @@ class FoodApiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Item::find($id);
+        if(is_null($item)){
+            return response()->json(["message"=>"No Contact With This ID","status"=>404],404);
+        }
+
+        if(Gate::denies('delete',$item)){
+            return response()->json([
+                "message"=>"forbidden",
+
+            ],403);
+        }
+
+        $item->delete();
+        return response()->json('delete success',204);
+
     }
 }

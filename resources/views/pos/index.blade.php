@@ -23,7 +23,7 @@
             vertical-align: middle;
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             transition: .4s;
         }
         .pos-card-img-top:hover{
