@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -87,14 +88,14 @@ class FoodApiController extends Controller
     public function update(Request $request, $id)
     {
 
-//        $validator = $request->validate([
-//            //unique:table,column
-//            "name" => "required|unique:items,name,".$id."|min:3|max:50",
-//            "category_id" => "required",
-//            "price"=>"required",
-//            "description"=>"nullable|max:100",
-//            "photo" => "required|max:5000"
-//        ]);
+        $validator = $request->validate([
+            //unique:table,column
+            "name" => "nullable|unique:items,name,".$id."|min:3|max:50",
+            "category_id" => "nullable|numeric",
+            "price"=>"nullable",
+            "description"=>"nullable|max:100",
+            "photo" => "nullable|max:5000"
+        ]);
 
         $item = Item::find($id);
 

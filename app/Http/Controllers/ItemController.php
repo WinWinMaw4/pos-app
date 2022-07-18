@@ -115,14 +115,14 @@ class ItemController extends Controller
      */
     public function update(UpdateItemRequest $request, Item $item)
     {
-        $request->validate([
-//            .$this->route('post')->id.
-            "name" => "required|unique:items,name,".$item->id."|min:3|max:50",
-            "category_id" => "required",
-            "price"=>"required",
-            "description"=>"nullable|max:100",
-            "photo" => "nullable|file|mimes:jpeg,png|max:5000"
-        ]);
+//        $request->validate([
+////            .$this->route('post')->id.
+//            "name" => "required|unique:items,name,".$item->id."|min:3|max:50",
+//            "category_id" => "required",
+//            "price"=>"required",
+//            "description"=>"nullable|max:100",
+//            "photo" => "nullable|file|mimes:jpeg,png|max:5000"
+//        ]);
 //        return $request;
 
         $item->name = ucwords($request->name);
