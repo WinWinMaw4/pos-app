@@ -38,8 +38,8 @@ class HomeController extends Controller
 
         $dailyVouchers = DailyVoucher::where('date','>=',Carbon::now()->subdays(15))->get();
         $todayVouchers = Voucher::whereDate('date',Carbon::now()->today())->get();
-//        $weeklyVouchers = DailyVoucher::whereDate('date',Carbon::now()->subdays(7))->get();
-        $weeklyVouchers = DailyVoucher::whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $weeklyVouchers = DailyVoucher::where('date','>=',Carbon::now()->subdays(7))->get();
+//        $weeklyVouchers = DailyVoucher::whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
         $Day = DailyVoucher::where('date','>=',Carbon::now()->subdays(7))->get();
         $voucherLists = VoucherList::whereDate('date',Carbon::now()->today())->get();
         $monthlyInCome = MonthlyIncome::whereYear('date',Carbon::now()->year)->get();
