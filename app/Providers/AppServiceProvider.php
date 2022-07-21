@@ -33,5 +33,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('casher',function (){
             return auth()->check() && auth()->user()->isCasher();
         });
+        Blade::if('user',function (){
+            return auth()->check() && auth()->user()->isUser();
+        });
     }
 }

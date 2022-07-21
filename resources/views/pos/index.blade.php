@@ -42,6 +42,7 @@
         .voucher-col{
             position: fixed;
             right: 0;
+            z-index: 100;
         }
         .voucher{
             height: 92vh;
@@ -76,6 +77,11 @@
             display: none !important;
         }
 
+        /*@media screen and (max-width: 480px){*/
+        /*    .voucher-col{*/
+        /*        z-index: -1;*/
+        /*    }*/
+        /*}*/
         @media print {
             .hide-in-print{
                 display: none !important;
@@ -102,7 +108,7 @@
 @section('content')
 
     @casher
-    <div class=" col-12 col-md-9 col-lg-9 mt-4 pb-5 ps-3 hide-in-print">
+    <div class=" col-12 col-md-9 col-lg-7 mt-4 pb-5 ps-3 hide-in-print">
         <div class="row mb-3">
             <div class="col">
                 <input type="text" placeholder="Customer Number" id="cName"  value="{{ ucwords('Customer') }}" class="form-control">
@@ -142,7 +148,7 @@
             <div class="col-12">
 
                 <div class="item">
-                    <div class="row row-cols-5 row-cols-md-5 row-cols-lg-5 g-0" id="product-lists">
+                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-1" id="product-lists">
                         @forelse($items as $item)
                             <div class="col">
                                 {{--                                data-bs-toggle="modal" data-bs-target="#productDetail{{$item->id}}"--}}
@@ -192,13 +198,17 @@
                             @endforelse
                         @endif
                         {{--                            end category serach--}}
-                        <div class="col">
-                            <a href="{{route('item.create')}}" class="text-decoration-none text-black-50" title="Add Item">
-                                <div class="card pos-card bg-light border d-flex justify-content-center align-items-center">
-                                    <i class="fas fa-plus fa-2x"></i>
+
+                            @sayargyi
+                                <div class="col">
+                                    <a href="{{route('item.create')}}" class="text-decoration-none text-black-50" title="Add Item">
+                                        <div class="card pos-card bg-light border d-flex justify-content-center align-items-center">
+                                            <i class="fas faa-plus fa-2x"></i>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                        </div>
+                                @endsayargyi
+
                     </div>
                     @isset($categorySearch)
 
@@ -216,7 +226,7 @@
     </div>
 
     {{--    voucher --}}
-    <div class="col-12 col-md-12  col-lg-3 px-0 d-md-none d-lg-block voucher-col">
+    <div class="col-12 col-md-12  col-lg-3 px-0 d-sm-block d-md-none d-lg-block voucher-col ">
         <div class="bg-white  w-100 shadow-sm voucher" style="position: relative;">
             <h4 class="d-flex justify-content-between align-items-center mb-2 py-3 hide-in-print">
                 <span class="text-primary">Your Voucher</span>

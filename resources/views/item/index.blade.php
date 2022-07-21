@@ -11,9 +11,11 @@
                         <li class="nav-item">
                             <a class="nav-link {{route('item.index') == request()->url()? 'active':''}}" aria-current="page" href="{{route('item.index')}}">Item List</a>
                         </li>
+                        @sayargyi
                         <li class="nav-item">
                             <a class="nav-link {{route('item.create') == request()->url()? 'active':''}}" href="{{route('item.create')}}">Add Item</a>
                         </li>
+                        @endsayargyi
                     </ul>
                     <span class="p-2 border rounded-2 text-center">
                         Total Item :
@@ -74,6 +76,7 @@
                                             <a href="{{route('item.show',$item->id)}}" class="btn btn-outline-info btn-sm text-decoration-none me-1">
                                                 <i class="fas fa-exclamation-circle fa-fw fa-1x"></i>
                                             </a>
+                                            @sayargyi
                                             <a href="{{route('item.edit',$item->id)}}" class="btn btn-outline-warning btn-sm text-decoration-none me-1">
                                                 <i class="fas fa-edit fa-fw fa-1x"></i>
                                             </a>
@@ -84,6 +87,7 @@
                                                     <i class="fas fa-trash-alt fa-fw fa-1x"></i>
                                                 </button>
                                             </form>
+                                            @endsayargyi
                                         </div>
                                     </td>
                                     <td class="text-end">

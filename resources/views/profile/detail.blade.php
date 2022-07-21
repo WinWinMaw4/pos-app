@@ -20,6 +20,15 @@
                             <p class="small text-white mb-0 fs-6">{{auth()->user()->role}}</p>
 
                         </div>
+                        <div class="">
+                            <a class="btn btn-outline-danger" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Log Out</a>
+{{--                            Log Out--}}
+                        </div>
+                        <div form="profileEditForm">
+                            @error('photo')
+                            <div class="invalid-feedback ps-2">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 col-xl-7">

@@ -29,7 +29,6 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::resource('/pos',PosController::class);
 
 
 Route::prefix('/user/profile')->middleware('auth')->group(function(){
@@ -41,7 +40,7 @@ Route::prefix('/user/profile')->middleware('auth')->group(function(){
 
 });
 
-Route::prefix('/income')->middleware('auth')->group(function (){
+Route::prefix('/income')->middleware(['auth'])->group(function (){
     Route::post('/store-voucher',[VoucherController::class,'storeVoucher']);
     Route::get('/today-income',[IncomeController::class,'toDayInCome'])->name('toDayInCome');
     Route::get('/all-income-list',[IncomeController::class,'allInComeVouchers'])->name('allInComeVouchers');
@@ -57,8 +56,8 @@ Route::prefix('/income')->middleware('auth')->group(function (){
 
 });
 
+    Route::resource('/pos',PosController::class);
 Route::middleware('auth')->group(function(){
-
 
 
     Route::get('/search',[HomeController::class,'search'])->name('search');

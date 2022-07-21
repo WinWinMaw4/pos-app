@@ -23,7 +23,7 @@
                         @sayargyi
                             only for SaYarGyi
                         @else
-                            your not sayargyi
+                            <span class="h3 text-danger">you are not sayargyi</span>
                         @endsayargyi
                 </div>
             </div>

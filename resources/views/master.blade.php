@@ -22,27 +22,29 @@
     @csrf
 </form>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 w-100 shadow-sm hide-in-print" style="z-index: 5">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{route('pos.index')}}">
-{{--            <img src="{{asset('images/logo.png')}}" height="50" class="logo" alt="">--}}
-            {{ config('app.name', 'Laravel') }}
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                @guest()
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('login') }}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">Register</a>
-                    </li>
-                @endguest
+@user
+@else
+    <nav class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 w-100 shadow-sm hide-in-print" style="z-index: 5">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{route('pos.index')}}">
+                {{--            <img src="{{asset('images/logo.png')}}" height="50" class="logo" alt="">--}}
+                {{ config('app.name', 'Laravel') }}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    @guest()
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ route('login') }}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                        </li>
+                    @endguest
 
-                @auth()
+                    @auth()
                         <li class="nav-item  me-3">
                             <a class="nav-link text-primary text-capitalize" href="{{route('profileDetail')}}" id="profile">
                                 @if(auth()->user()->photo == null)
@@ -53,84 +55,108 @@
                                 {{auth()->user()->name}}
                             </a>
                         </li>
-{{--                    <li class="nav-item dropdown me-3">--}}
-{{--                        <a class="nav-link dropdown-toggle text-primary text-capitalize" href="{{route('profileDetail')}}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
-{{--                            @if(auth()->user()->photo == null)--}}
-{{--                                <img src="{{asset('storage/user-default.png')}}" class="user-img rounded-circle border border-2 border-black shadow-sm" alt="" style="width: 30px;height: 30px;object-fit: cover">--}}
-{{--                            @else--}}
-{{--                                <img src="{{asset('storage/profile/'.auth()->user()->photo)}}" class="user-img rounded-circle border border-2 border-black shadow-sm" alt="" style="width: 30px;height: 30px;object-fit: cover">--}}
-{{--                            @endif--}}
-{{--                            {{auth()->user()->name}}--}}
-{{--                        </a>--}}
-{{--                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">--}}
-{{--                            <li><a class="dropdown-item" href="{{route('profileDetail')}}">Edit Profile</a></li>--}}
-{{--                            <li><a class="dropdown-item" href="#">Change Password</a></li>--}}
-{{--                            <li><hr class="dropdown-divider"></li>--}}
-{{--                            <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Log Out</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-                @endauth
-            </ul>
+                        {{--                    <li class="nav-item dropdown me-3">--}}
+                        {{--                        <a class="nav-link dropdown-toggle text-primary text-capitalize" href="{{route('profileDetail')}}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
+                        {{--                            @if(auth()->user()->photo == null)--}}
+                        {{--                                <img src="{{asset('storage/user-default.png')}}" class="user-img rounded-circle border border-2 border-black shadow-sm" alt="" style="width: 30px;height: 30px;object-fit: cover">--}}
+                        {{--                            @else--}}
+                        {{--                                <img src="{{asset('storage/profile/'.auth()->user()->photo)}}" class="user-img rounded-circle border border-2 border-black shadow-sm" alt="" style="width: 30px;height: 30px;object-fit: cover">--}}
+                        {{--                            @endif--}}
+                        {{--                            {{auth()->user()->name}}--}}
+                        {{--                        </a>--}}
+                        {{--                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">--}}
+                        {{--                            <li><a class="dropdown-item" href="{{route('profileDetail')}}">Edit Profile</a></li>--}}
+                        {{--                            <li><a class="dropdown-item" href="#">Change Password</a></li>--}}
+                        {{--                            <li><hr class="dropdown-divider"></li>--}}
+                        {{--                            <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Log Out</a></li>--}}
+                        {{--                        </ul>--}}
+                        {{--                    </li>--}}
+                    @endauth
+                </ul>
 
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 <div class="py-4 mb-2 hide-in-print"></div>
+@enduser
 
 <div class="container-fluid ">
     <div class="row">
-        @casher
-
-        @else
             <div class="col-12 col-md-3 col-lg-2 vh-100 bg-white shadow px-0 side-nav d-none d-md-block hide-in-print">
-                <div class="list-group px-0  bg-warning">
-                    <a href="{{route('pos.index')}}" class="list-group-item list-group-item-action py-3 {{request()->routeIs('pos.index*') ? 'active' : '' }}">POS System</a>
-                    <a href="{{route('dashboardView')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start {{request()->routeIs('dashboardView') ? 'active' : '' }}">
-                        <div class="me-auto">
-                            <div class="fw-bold">
-                                <i class="fa-solid fa-grip "></i>
-                                Dashboard
-                            </div>
+            <div class="list-group px-0  bg-warning">
+                <a href="{{route('pos.index')}}" class="list-group-item list-group-item-action py-3 {{request()->routeIs('pos.index*') ? 'active' : '' }}">POS System</a>
+                <a href="{{route('dashboardView')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start {{request()->routeIs('dashboardView') ? 'active' : '' }}">
+                    <div class="me-auto">
+                        <div class="fw-light">
+                            <i class="fa-solid fa-grip "></i>
+                            Dashboard
                         </div>
-                    </a>
-                    <a href="{{route('toDayInCome')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start @yield('income_select')">
-                        <div class="me-auto">
-                            <div class="fw-bold">
-                                <i class="fa-solid fa-dollar "></i>
-                                Incomes
-                            </div>
-                        </div>
-                    </a>
+                    </div>
+                </a>
+                @sayargyi
 
-                    <a href="{{route('category.index')}}" class=" list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start {{request()->routeIs('category*') ? 'active' : '' }}">
-                        <div class="me-auto">
-                            <div class="fw-bold">
-                                <i class="fas fa-layer-group"></i>
-                                Category
-                            </div>
+                <a href="{{route('toDayInCome')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start @yield('income_select')">
+                    <div class="me-auto">
+                        <div class="fw-light">
+                            <i class="fa-solid fa-dollar "></i>
+                            Incomes
                         </div>
-{{--                        <span class="badge bg-primary rounded-pill">14</span>--}}
-                    </a>
-                    <a href="{{route('item.index')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start {{request()->routeIs('item*') ? 'active' : '' }}">
-                        <div class="me-auto">
-                            <div class="fw-bold">
-                                <i class="fa-solid fa-dice-d6"></i>
-                                Items
-                            </div>
+                    </div>
+                </a>
+
+                <a href="{{route('category.index')}}" class=" list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start {{request()->routeIs('category*') ? 'active' : '' }}">
+                    <div class="me-auto">
+                        <div class="fw-light">
+                            <i class="fas fa-layer-group"></i>
+                            Category
                         </div>
-                    </a>
-                    <a href="{{route('popularItem')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start {{request()->routeIs('popularItem*') ? 'active' : '' }}">
-                        <div class="me-auto">
-                            <div class="fw-bold">
-                                <i class="fa-solid fa-star "></i>
-                                Popular Items
-                            </div>
+                    </div>
+                    {{--                        <span class="badge bg-primary rounded-pill">14</span>--}}
+                </a>
+                <a href="{{route('item.index')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start {{request()->routeIs('item*') ? 'active' : '' }}">
+                    <div class="me-auto">
+                        <div class="fw-light">
+                            <i class="fa-solid fa-dice-d6"></i>
+                            Items
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
+
+                <a href="{{route('popularItem')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start {{request()->routeIs('popularItem*') ? 'active' : '' }}">
+                    <div class="me-auto">
+                        <div class="fw-light">
+                            <i class="fa-solid fa-star "></i>
+                            Popular Items
+                        </div>
+                    </div>
+                </a>
+                @endsayargyi
+                @casher
+                <a href="{{route('item.index')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start {{request()->routeIs('item*') ? 'active' : '' }}">
+                    <div class="me-auto">
+                        <div class="fw-light">
+                            <i class="fa-solid fa-dice-d6"></i>
+                            Items
+                        </div>
+                    </div>
+                </a>
+                <a href="{{route('toDayInCome')}}" class="list-group-item list-group-item-action py-3 d-flex justify-content-between align-items-start @yield('income_select')">
+                    <div class="me-auto">
+                        <div class="fw-light">
+                            <i class="fa-solid fa-dollar "></i>
+                            Today Income
+                        </div>
+                    </div>
+                </a>
+                @endcasher
+
             </div>
+        </div>
 
-            @endcasher
+
+            @user
+            @enduser
+
 
             @yield('content')
     </div>

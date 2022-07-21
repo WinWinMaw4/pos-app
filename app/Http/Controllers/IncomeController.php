@@ -15,6 +15,12 @@ use function PHPUnit\Framework\isNull;
 class IncomeController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('isSaYarGyi')->except('toDayInCome');
+    }
+
+
     public function allInComeVouchers(){
         $vouchers = Voucher::orderBy('id','desc')->get();
         return view('income.allList',[
@@ -43,6 +49,7 @@ class IncomeController extends Controller
         ]);
     }
 
+    //စာရင်းချုပ်
     public function totalToday(Request $request){
         $todayTotal = new DailyVoucher();
 

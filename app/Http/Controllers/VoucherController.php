@@ -15,6 +15,12 @@ use Illuminate\Support\Str;
 class VoucherController extends Controller
 {
     //
+
+    public function __construct()
+    {
+//        $this->middleware(['auth','isSaYarGyi'])->except('storeVoucher');
+    }
+
     public function voucherDetail($voucherId){
 
         $voucher = Voucher::where('id',$voucherId)->get();

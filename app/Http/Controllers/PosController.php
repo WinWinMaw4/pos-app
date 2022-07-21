@@ -14,7 +14,7 @@ class PosController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('isSaYarGyi')->except(['index']);
     }
 
     /**
@@ -33,17 +33,17 @@ class PosController extends Controller
 
             $items = Item::where('name','like','%'.$request->search.'%')
                 ->orWhere('description','like','%'.$request->search.'%')->with('category')
-                ->latest()->paginate(10)->withQueryString();
-            $categorySearch = Category::where('name','like','%'.$request->search.'%')->with('items')->get();
+                ->latest()->paginate(15)->withQueryString();
+            $categorySearch = Category::where('name','like','%'.$request->search.'%')->with('items')->paginate(10)->get();
 
 
         }elseif($request->category){
-            $items = Item::where("category_id","LIKE","%$request->category%")->paginate(5)->withQueryString();
+            $items = Item::where("category_id","LIKE","%$request->category%")->paginate(15)->withQueryString();
             $categorySearch = null;
 //            $items = Category::with('items')->where('name',$request->category)->latest()->paginate(10)->withQueryString();
 //            return $items;
         }else{
-            $items = Item::latest()->paginate(20);
+            $items = Item::latest()->paginate(15);
             $categorySearch = null;
 
         }

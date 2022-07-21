@@ -18,6 +18,10 @@ class ItemController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function __construct()
+    {
+        $this->middleware('isSaYarGyi')->except(['index','show']);
+    }
 
     public function index()
     {

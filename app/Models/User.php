@@ -51,5 +51,8 @@ class User extends Authenticatable
     public function isCasher():bool{
         return $this->role === 'casher';
     }
+    public function isUser():bool{
+        return $this->role === 'user';
+    }
 
 }

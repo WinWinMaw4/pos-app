@@ -17,9 +17,12 @@ class IsSaYarGyi
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::id() != 1){
-            return abort(405);
+        if(Auth::check()){
+            if(Auth::user()->role != 'sayargyi'){
+                return abort(401);
+            }
         }
+
         return $next($request);
     }
 }

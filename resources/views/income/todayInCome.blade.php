@@ -13,6 +13,7 @@
 
 
     <div class="col-12 col-md-9 col-lg-10 py-5 ps-3 mb-5">
+        @sayargyi
         <div class="mb-4 d-flex justify-content-between align-items-center">
             <ul class="nav nav-pills">
                 <li class="nav-item">
@@ -61,12 +62,29 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+        @else
+{{--            //for casher--}}
+           <div class="d-flex justify-content-between align-items-center">
+               <h3>Today Voucher Lists</h3>
+               <div class="">
+                    <span class="p-2 border rounded-2 text-center me-1">
+                        <lable class="text-black-50">Today InCome : </lable>
+                        {{\App\Models\VoucherList::whereDate('date',\Illuminate\Support\Carbon::today() )->sum('cost')}}
+                    </span>
+                   <span class="p-2 border rounded-2 text-center me-1">
+                        <label class="text-black-50">Today Total Voucher :</label>
+                        {{count(\App\Models\Voucher::whereDate('date',\Illuminate\Support\Carbon::today())->get())}}
+                    </span>
+               </div>
+           </div>
+    @endsayargyi
+
         @if(session('status'))
             <div class="alert alert-success my-1 alert-dismissible fade show">
                 <strong>{{session('status')}}</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            @endif
+        @endif
         <div class="py-3 table-responsive-sm mb-5">
             <table class="table table-hover table-borderless align-middle py-2" id="table_id">
                 <thead class="table-primary">
