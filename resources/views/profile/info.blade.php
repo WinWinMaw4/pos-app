@@ -1,13 +1,31 @@
 @extends('master')
+@section('head')
+    <style>
+        .error-outline{
+            outline: 2px dotted red;outline-offset: 10px;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="ccol-12 col-md-9  ps-3">
         <div class="container">
             <div class="row row-cols-2 justify-content-start align-items-start">
                 <div class="col-12 col-lg-6 col-xl-5">
                     <div class="">
-                        <div class="text-center my-5 shadow pb-4  bg-primary rounded overflow-hidden text-white" >
+                        {{--                        update Image--}}
+                        <form action="{{route('updateProfileImage',\Illuminate\Support\Facades\Auth::id())}}" id="imageChangeForm" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @method('put')
+                            <div class="">
+                                <input type="file" name="photo" accept="image/jpeg,image/png" value="{{ old('photo',auth()->user()->photo) }}" class="d-none @error('photo') is-invalid @enderror">
+                                @error('photo')
+                                <div class="invalid-feedback ps-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </form>
+                        <div class="edit-img-div text-center my-5 shadow pb-4  bg-primary rounded overflow-hidden text-white ">
                             {{--                            <h4 class="fw-bold mb-4">Edit Your Profile</h4>--}}
-                            @if(auth()->user()->photo == null)
+                        @if(auth()->user()->photo == null)
                                 <img id="yPhoto" src="{{asset('storage/user-default.png')}}" class="profile-image" alt="" style="width: 100%;aspect-ratio: 4/3;object-fit: cover "><br>
                             @else
                                 <img id="yPhoto" src="{{asset('storage/profile/'.auth()->user()->photo)}}" class="profile-image" alt="" style="width: 100%;aspect-ratio: 4/3;object-fit: cover "><br>
@@ -20,11 +38,7 @@
                             <p class="small text-white mb-0 fs-6">{{auth()->user()->role}}</p>
 
                         </div>
-                        <div form="profileEditForm">
-                            @error('photo')
-                            <div class="invalid-feedback ps-2">{{ $message }}</div>
-                            @enderror
-                        </div>
+
                         <div class="">
                             <a class="btn btn-outline-danger" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Log Out</a>
                             {{--                            Log Out--}}
@@ -46,6 +60,7 @@
                                 </a>
                             </li>
                         </ul>
+{{--                        Update Info--}}
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-info">
                                 <div class="">
@@ -138,32 +153,61 @@
 
 
         // // axios post
-        // let laravelToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        // let updateBtn = document.getElementById('update-btn');
-        // let profileEidtForm = document.getElementById('profileEditForm');
-        // profileEidtForm.addEventListener('submit',function (e) {
-        //
-        //     // let data = {
-        //     //     your_photo : document.getElementById('yPhoto').getAttribute('src'),
-        //     //     your_name : document.getElementById('yName').value,
-        //     //     your_email : document.getElementById('yEmail').value,
-        //     //     your_phone : document.getElementById('yPhone').value,
-        //     // }
-        //     // console.log(data);
-        //     e.preventDefault()
-        //     let formData = new FormData(this);
-        //     console.log(formData);
-        //
-        //     axios.post(profileEidtForm.getAttribute('action'),formData)
-        //         .then(function (response){
-        //             if(response.data.status == "success"){
-        //                 console.log(response.data);
-        //             }
-        //         }).catch(function (error){
-        //             console.log(error);
-        //     })
-        //
-        // })
+        let laravelToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        let updateBtn = document.getElementById('update-btn');
+        let imageChangeForm = document.getElementById('imageChangeForm');
+        imageChangeForm.addEventListener('change',function (e) {
+
+            // let data = {
+            //     your_photo : document.getElementById('yPhoto').getAttribute('src'),
+            //     your_name : document.getElementById('yName').value,
+            //     your_email : document.getElementById('yEmail').value,
+            //     your_phone : document.getElementById('yPhone').value,
+            // }
+            // console.log(data);
+            e.preventDefault()
+            let formData = new FormData(this);
+            console.log(formData);
+
+            axios.post(imageChangeForm.getAttribute('action'),formData)
+                .then(function (response){
+                    if(response.data.status == "success"){
+                        document.querySelector('.edit-img-div').classList.remove('error-outline');
+
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'center',
+                            showConfirmButton: false,
+                            showCloseButton:true,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Profile Image Updated'
+                        })
+                    }
+                    if(response.data.status == "fails"){
+                        console.log(response.data.errors);
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Oops...We cannot update profile',
+                            text: JSON.stringify(response.data.errors['photo']),
+                        });
+                        document.querySelector('.edit-img-div').classList.add('error-outline');
+
+                    }
+                }).catch(function (error){
+                    console.log(error);
+            })
+
+        })
     </script>
+
+
 @endpush
 

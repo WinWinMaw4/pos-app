@@ -7,12 +7,45 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
     //
     public function profileDetail(){
         return view('profile.info');
+    }
+    public function updateProfileImage(Request $request){
+
+        $validation = Validator::make($request->all(),[
+            "photo" => "nullable|file|mimes:jpeg,png|max:1000",
+        ]);
+
+        if($validation->fails()){
+            return response()->json([
+                "status" => 'fails',
+                "errors"=>$validation->errors(),
+            ]);
+        }
+
+        $user = User::find(auth()->id());
+
+        if($request->hasFile('photo')){
+            //            delete old cover
+            Storage::delete("public/profile/".$user->photo);
+
+            $newName = "profile_".uniqid().".".$request->file('photo')->extension();
+            $request->file('photo')->storeAs("public/profile",$newName);
+            $user->photo = $newName;
+
+        }
+        $user->update();
+
+
+        return response()->json([
+            "status" => 'success',
+            "data"=>'Your form data updated',
+        ]);
     }
     public function updateProfile(Request $request){
         $request->validate([

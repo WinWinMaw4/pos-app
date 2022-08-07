@@ -36,6 +36,7 @@ Route::prefix('/user/profile')->middleware('auth')->group(function(){
     Route::put('/profile-edit/{id}',[UserController::class,'updateProfile'])->name('updateProfile');
     Route::get('/change-password',[UserController::class,'changePassword'])->name('changePassword');
     Route::put('/update-password/{id}',[UserController::class,'updatePassword'])->name('updatePassword');
+    Route::put('/update-profileImage/{id}',[UserController::class,'updateProfileImage'])->name('updateProfileImage');
 
 
 });

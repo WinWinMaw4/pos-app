@@ -11298,7 +11298,6 @@ textarea.form-control-lg {
   top: 3rem;
   height: calc(100vh - 10rem);
   padding-left: 0.25rem;
-  margin-left: -0.25rem;
   overflow-y: auto;
 }
 
@@ -11308,11 +11307,14 @@ textarea.form-control-lg {
 
 .list-group-item.active {
   z-index: 2;
-  color: #000;
-  background-color: #ffffff;
+  background-color: #e3f4ff;
+  color: #00558a;
   border-color: #00558a;
-  border-left-width: 10px;
-  /* border: none; */
+  border-left-width: 5px;
+  border-left-style: double;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 0;
   /* border-right-width: 5px; */
   border-left-color: #00558a;
 }
