@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     //
     public function profileDetail(){
-        return view('profile.detail');
+        return view('profile.info');
     }
     public function updateProfile(Request $request){
         $request->validate([
@@ -53,7 +53,7 @@ class UserController extends Controller
     }
 
     public function changePassword(){
-        return view('profile.change-password');
+        return view('profile.change-passwor');
     }
 
     public function updatePassword(Request $request){
