@@ -115,7 +115,7 @@
                                        <td>
                                            <div class="rounded-circle overflow-hidden bg-secondary" style="height: 40px;width: 40px;">
                                                <a href="{{$item->photo}}">
-                                                   <img src="{{$item->photo}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">
+                                                   <img src="{{asset('storage/item/'.$item->photo)}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">
                                                </a>
                                            </div>
                                        </td>

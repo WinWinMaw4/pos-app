@@ -29,13 +29,12 @@ class PosController extends Controller
 //        dd($items);
         if($request->search){
 //            $items = Category::with('items')->where('name',$request->search)->latest()->paginate(10)->withQueryString();
-//            return $items;
+//
 
             $items = Item::where('name','like','%'.$request->search.'%')
-                ->orWhere('description','like','%'.$request->search.'%')->with('category')
+                ->with('category')
                 ->latest()->paginate(15)->withQueryString();
-            $categorySearch = Category::where('name','like','%'.$request->search.'%')->with('items')->paginate(10)->get();
-
+            $categorySearch = Category::where('name','like','%'.$request->search.'%')->with('items')->paginate(10)->withQueryString();
 
         }elseif($request->category){
             $items = Item::where("category_id","LIKE","%$request->category%")->paginate(15)->withQueryString();

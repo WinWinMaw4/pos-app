@@ -15,7 +15,7 @@ class FoodApiController extends Controller
      */
     public function index()
     {
-        $items = Item::latest('id')->with(['category'])->get();
+        $items = Item::with(['category'])->get();
 //        return view("item.index",["items"=>$items]);
         return response()->json([
             'message'=>'Items',

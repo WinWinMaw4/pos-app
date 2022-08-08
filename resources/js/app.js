@@ -55,7 +55,7 @@ function voucherListCreate(productId,title,productImg,price,quantity,cost){
     // li.setAttribute("data-index",index)
     li.innerHTML = `
         <i class="fas fa-times text-danger remove-list px-2 voucher-list-del hide-in-print" data-product-id="${productId}" style="cursor: pointer"></i>
-        <img src="${productImg}" alt="" class="vourcher-product-img rounded-2 me-1 hide-in-print" width="40px" height="40px">
+        <img src="${productImg}" alt="" class="vourcher-product-img rounded-2 me-1 hide-in-print" width="40px" height="40px" style="object-fit: cover" />
         <div class="w-50 hide-in-print">
            <div class="">
                 <h6 class="my-0 text-truncate voucher-product-name show-in-print-small-text">${title}</h6>

@@ -19,7 +19,7 @@
                         <h4 class="p-0 fw-bold">{{$item->name}}</h4>
                     </div>
                     <div class="card-img-top">
-                        <img src="{{$item->photo}}" alt="" class="w-100" style="height: 300px;object-fit: contain">
+                        <img src="{{asset('storage/item/'.$item->photo)}}" alt="" class="w-100" style="height: 300px;object-fit: contain">
                     </div>
                     <div class="card-body">
                         <div class="card-text">

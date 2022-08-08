@@ -38,9 +38,13 @@ class ItemController extends Controller
                 ->selectRaw('sum(quantity) as total_sales')
         ])->orderBy('total_sales','desc')->get();
 
+        $total_sale = VoucherList::whereDate('date',today())->sum('quantity');
+
+
 //        return $popular_item;
         return view('item.popularItem',[
             'popular_item'=>$popular_item,
+            'total_sale'=>$total_sale,
         ]);
     }
     /**
@@ -71,7 +75,7 @@ class ItemController extends Controller
         ]);
 
         //photo Save in local
-        $newName = "item_".uniqid().".".$request->file('photo')->extension();
+        $newName = $request->name."_item_".uniqid().".".$request->file('photo')->extension();
         $request->file('photo')->storeAs("public/item",$newName);
 
         $item = new Item();

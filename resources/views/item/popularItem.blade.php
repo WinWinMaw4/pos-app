@@ -19,10 +19,11 @@
 {{--                      <th colspan="5" class="text-end" style="background-color: #F7F7F7">{{\Illuminate\Support\Carbon::now()->toDayDateTimeString()}}--}}
 {{--                      </th>--}}
                       <th>#</th>
-                      <th colspan="2"class="w-100 overflow-hidden" >Product</th>
-                      <th>Category</th>
-                      <th>Unit Price</th>
-                      <th>Sales Qty</th>
+                      <th colspan="2"class="w-25 overflow-hidden" >Product</th>
+                      <th class="text-center">Category</th>
+                      <th class="text-center">Unit Price</th>
+                      <th class="text-center">Percentage</th>
+                      <th class="text-center">Sales Qty</th>
                       <th>Sales Price</th>
                   </tr>
                   </thead>
@@ -30,18 +31,32 @@
                   @foreach ($popular_item as $item)
                       <tr>
                           <td>{{$item->id}}</td>
-                          <td>
+                          <td >
                               <div class="rounded-circle overflow-hidden bg-secondary" style="height: 40px;width: 40px;">
-                                  <a href="{{$item->photo}}">
-                                      <img src="{{$item->photo}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">
+                                  <a href="{{asset('storage/item/'.$item->photo)}}">
+                                      <img src="{{asset('storage/item/'.$item->photo)}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">
                                   </a>
                               </div>
                           </td>
                           <td class="text-truncate">{{$item->name}}</td>
-                          <td > {{$item->category->name}}</td>
-                          <td> {{$item->price}}</td>
-                          <td> {{$item->total_sales}}</td>
-                          <td>${{round($item->price * $item->total_sales,2)}}</td>
+                          <td class="text-center"> {{$item->category->name}}</td>
+                          <td class="text-center"> {{$item->price}}</td>
+                          <td class="text-center">
+                              @if($item->total_sales)
+                                  <small class=""> {{round(($item->total_sales / $total_sale)*100)}}%</small>
+                              @else
+                                  <small>0%</small>
+                              @endif
+                              <div class="progress" style="height: .7rem">
+                                  {{--                                               <div class="progress-bar bg-primary" role="progressbar" style="width:{{($item->total_sales) ? `round(($item->total_sales / $total_sale)*100)`:'0'}}%"  aria-valuemax="100"></div>--}}
+                                  <div class="progress-bar bg-primary position-relative " role="progressbar" style="width:@if($item->total_sales){{round(($item->total_sales / $total_sale)*100)}}@endif%"  aria-valuemax="100">
+
+                                  </div>
+
+                              </div>
+                          </td>
+                          <td class="text-center"> {{$item->total_sales}}</td>
+                          <td>{{round($item->price * $item->total_sales,2)}} <small>MMK</small></td>
                       </tr>
                   @endforeach
                   </tbody>

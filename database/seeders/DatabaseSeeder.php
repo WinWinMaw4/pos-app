@@ -25,64 +25,64 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            "name"=>"SaYarGyi",
-            "email"=>"sayargyi@gmail.com",
-            "role"=>"sayargyi",
-            "photo"=>null,
-            "password"=>Hash::make('password')
-        ]);
-        User::create([
-            "name"=>"WinWinMaw",
-            "email"=>"wwm@gmail.com",
-            "role"=>"manager",
-            "photo"=>null,
-            "password"=>Hash::make('password')
-        ]);
-        User::create([
-            "name"=>"casher1",
-            "email"=>"casher1@gmail.com",
-            "role"=>"casher",
-            "photo"=>null,
-            "password"=>Hash::make('password')
-        ]);
+//        User::create([
+//            "name"=>"SaYarGyi",
+//            "email"=>"sayargyi@gmail.com",
+//            "role"=>"sayargyi",
+//            "photo"=>null,
+//            "password"=>Hash::make('password')
+//        ]);
+//        User::create([
+//            "name"=>"WinWinMaw",
+//            "email"=>"wwm@gmail.com",
+//            "role"=>"manager",
+//            "photo"=>null,
+//            "password"=>Hash::make('password')
+//        ]);
+//        User::create([
+//            "name"=>"casher1",
+//            "email"=>"casher1@gmail.com",
+//            "role"=>"casher",
+//            "photo"=>null,
+//            "password"=>Hash::make('password')
+//        ]);
 
-        Category::create([
-            "name"=>"Men",
-            "user_id"=> 2,
-        ]);
-        Category::create([
-            "name"=>"Woman",
-            "user_id"=> 2,
-        ]);
-        Category::create([
-            "name"=>"Child",
-            "user_id"=> 2,
-        ]);
-        Category::create([
-            "name"=>"jewelery",
-            "user_id"=> 2,
-        ]);
-        Category::create([
-            "name"=>"Shoe",
-            "user_id"=> 2,
-        ]);
+//        Category::create([
+//            "name"=>"Men",
+//            "user_id"=> 2,
+//        ]);
+//        Category::create([
+//            "name"=>"Woman",
+//            "user_id"=> 2,
+//        ]);
+//        Category::create([
+//            "name"=>"Child",
+//            "user_id"=> 2,
+//        ]);
+//        Category::create([
+//            "name"=>"jewelery",
+//            "user_id"=> 2,
+//        ]);
+//        Category::create([
+//            "name"=>"Shoe",
+//            "user_id"=> 2,
+//        ]);
 
 
 //        https://fakestoreapi.com/products
 //        https://foodish-api.herokuapp.com/
-        $items = \Illuminate\Support\Facades\Http::get("https://fakestoreapi.com/products")->object();
-//        $items = [];
-        foreach ($items as $item){
-            Item::factory()->create([
-                "name"=>$item->title,
-                "price"=>$item->price,
-                "photo" => $item->image,
-//                Str::limit($item->description,20)
-                "description"=>$item->description,
-                "category_id"=>rand(1,5),
-            ]);
-        }
+//        $items = \Illuminate\Support\Facades\Http::get("https://fakestoreapi.com/products")->object();
+//        $items = Item::all();
+//        foreach ($items as $item){
+//            Item::factory()->create([
+//                "name"=>$item->name,
+//                "price"=>$item->price,
+//                "photo" => $item->photo,
+////                Str::limit($item->description,20)
+//                "description"=>$item->description,
+//                "category_id"=>$item->category_id,
+//            ]);
+//        }
 
 
 
@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
             $monthlyInCome->save();
         }
 
-        $period = CarbonPeriod::create('2022-03-1', today());
+        $period = CarbonPeriod::create('2022-05-01', today());
             foreach ($period as $date){
 
 
@@ -121,7 +121,8 @@ class DatabaseSeeder extends Seeder
                 $totalCost = 0;
 
                 for($i=1;$i<rand(5,15);$i++){
-                    $item = Item::where("id",rand(1,20))->first();
+                    $id = rand(1,10);
+                    $item = Item::where("id",$id)->first();
                     $totalItem ++ ;
                     $quantity = rand(1,15);
                     $cost =floatval($item->price * $quantity);
