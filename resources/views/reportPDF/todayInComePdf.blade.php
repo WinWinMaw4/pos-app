@@ -68,15 +68,15 @@
 
 
    <div class="head">
-       <h1>{{date('d-m-Y')}} Income</h1>
+       <h1>{{date('d-M-Y')}} Income</h1>
 {{--       <h3 class="hide-in-print"><a href="{{route('download-pdf')}}">Download with pdf format</a></h3>--}}
        <div class="">
         <span class="total">
-            <lable class="text-black-50">Today InCome : </lable>
+            <lable class="text-black-50">InCome : </lable>
             {{\App\Models\VoucherList::whereDate('date',\Illuminate\Support\Carbon::today() )->sum('cost')}}
         </span><br>
            <span class="total">
-            <label class="text-black-50">Today Total Voucher :</label>
+            <label class="text-black-50">Total Voucher :</label>
             {{count(\App\Models\Voucher::whereDate('date',\Illuminate\Support\Carbon::today())->get())}}
         </span>
        </div>

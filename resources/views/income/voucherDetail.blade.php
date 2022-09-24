@@ -67,12 +67,12 @@
                     <tr class="border-bottom">
                         <td>{{$voucherlist->id}}</td>
                         <td class="text-center">
-                            <div class="rounded-circle overflow-hidden bg-secondary" style="height: 50px;width: 50px;">
+                            <div class="rounded-circle overflow-hidden bg-light border" style="height: 50px;width: 50px;">
 {{--                                <a href="{{asset("storage/item/".$voucherlist->items->photo)}}">--}}
 {{--                                    <img src="{{asset("storage/item/".$voucherlist->items->photo)}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">--}}
 {{--                                </a>--}}
                                 <a href="{{$voucherlist->items->photo}}">
-                                    <img src="{{$voucherlist->items->photo}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">
+                                    <img src="{{asset('storage/item/'.$voucherlist->items->photo)}}" style="width: 100%;height: 100%;object-fit: cover;" alt="">
                                 </a>
                             </div>
                         </td>

@@ -16,14 +16,15 @@ class ReportController extends Controller
         $vouchers = Voucher::whereDate('date',Carbon::today())->get();
         view()->share('vouchers',$vouchers);
 
-        $pdf = Pdf::loadView('reportPDF.todayInComePdf',[
+        $pdf = PDF::loadView('reportPDF.todayInComePdf',[
             'vouchers'=>$vouchers
         ])->setPaper('A4', 'landscape');
 
-//        $pdf->download(date('d-M-Y').'_todayIncome.pdf')->getOriginalContent();
-        $pdf = $pdf->download()->getOriginalContent();
+      //        $pdf->download(date('d-M-Y').'_Income.pdf')->getOriginalContent();
+//        $pdf = $pdf->download()->getOriginalContent();
         $dir = 'public/pdf/';
-        $newName = date('d-M-Y').'_todayIncome'.uniqid().'.pdf';
+        $newName = date('d-M-Y').'_Income'.uniqid().'.pdf';
+        return $pdf->download($newName);
         Storage::put($dir.$newName,$pdf);
         return redirect()->back()->with('pdfStatus',$newName);
     }

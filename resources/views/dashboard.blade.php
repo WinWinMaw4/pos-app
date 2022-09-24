@@ -105,7 +105,7 @@
                               <thead>
                                   <tr>
 {{--                                      toDayDateTimeString()--}}
-                                      <th colspan="6" class="text-end" style="background-color: #F7F7F7">{{\Illuminate\Support\Carbon::now()->toDayDateTimeString()}}
+                                      <th colspan="7" class="text-end" style="background-color: #F7F7F7">{{\Illuminate\Support\Carbon::now()->toDayDateTimeString()}}
                                       </th>
                                   </tr>
                               </thead>
@@ -121,6 +121,7 @@
                                        </td>
                                        <td>{{$item->name}}</td>
                                        <td> {{$item->category->name}}</td>
+                                       <td>{{$item->price}}</td>
                                        <td> {{$item->total_sales}}</td>
                                        <td>${{round($item->price * $item->total_sales,2)}}</td>
                                        <td class="w-25">

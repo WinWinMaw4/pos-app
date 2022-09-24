@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('item_id');
             $table->string('item_name');
             $table->integer('quantity');
-            $table->double('unit_price');
+            $table->double('unit_price')->default(0);
             $table->double('cost');
             $table->date('date');
             $table->timestamps();

@@ -88,7 +88,7 @@ class DatabaseSeeder extends Seeder
 
 
 //        $month = Carbon::now()->subMonths(5);
-        $month = CarbonPeriod::create('2022-01-01', '1 month', today());
+        $month = CarbonPeriod::create('2022-05-05', '1 month', today());
         foreach ($month as $dt) {
             $dt->format("Y-m-d");
             $monthlyInCome = new MonthlyIncome();
@@ -121,7 +121,8 @@ class DatabaseSeeder extends Seeder
                 $totalCost = 0;
 
                 for($i=1;$i<rand(5,15);$i++){
-                    $id = rand(1,10);
+
+                    $id = rand(1,11);
                     $item = Item::where("id",$id)->first();
                     $totalItem ++ ;
                     $quantity = rand(1,15);
